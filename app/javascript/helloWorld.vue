@@ -6,12 +6,12 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      hello: "Hello, Vue.js 3.0",
-    };
-  },
-};
+      hello: 'Hello, Vue.js 3.0'
+    }
+  }
+}
 </script>
 
 <style scoped>
