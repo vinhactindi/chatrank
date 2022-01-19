@@ -14,6 +14,9 @@ gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 
+gem 'omniauth'
+gem 'omniauth-discord'
+gem 'omniauth-rails_csrf_protection'
 gem 'slim-rails'
 
 group :development, :test do
