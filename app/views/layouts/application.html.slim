@@ -12,9 +12,9 @@ html
     - if current_user.present?
       = render 'layouts/menu'
     - if notice.present?
-      p#notice 
+      p#notice
         = notice
     - if alert.present?
-      p#alert 
+      p#alert
         = alert
     = yield
