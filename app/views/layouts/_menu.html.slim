@@ -1,0 +1,11 @@
+.menu-container
+  .title
+    | メニュー
+  ul
+    li
+      = link_to 'Servers', servers_path
+  .title
+    = current_user.username_discriminator
+  ul
+    li
+      = link_to 'ログアウト', logout_path, method: :delete
