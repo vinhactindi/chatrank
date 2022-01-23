@@ -1,0 +1,5 @@
+h1 
+  = @server.name
+= link_to 'Update channels list', server_channels_path(@server), method: :post
+ul
+  = render @channels

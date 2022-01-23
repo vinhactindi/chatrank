@@ -5,12 +5,8 @@ class ServersController < ApplicationController
     @servers = Server.all
   end
 
-  def show
-    @server = Server.find(params[:id])
-  end
-
   def create
-    response = Discordrb::API::User.servers("Bearer x#{current_user.token}")
+    response = Discordrb::API::User.servers("Bearer #{current_user.token}")
   rescue RestClient::Unauthorized, RestClient::Forbidden
     redirect_to servers_path, alert: '期限切れのトークン、もう一度ログインしてください'
   else

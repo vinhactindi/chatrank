@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
 
-  resources :servers, only: %i[index create show]
+  resources :servers, only: %i[index create] do
+    resources :channels, only: %i[index create show], controller: "servers/channels"
+  end
 end
