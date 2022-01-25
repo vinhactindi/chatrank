@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 class Channel < ApplicationRecord
-  has_many :children, class_name: 'Channel', foreign_key: 'parent_id'
-  belongs_to :parent, class_name: 'Channel', optional: true
+  has_many :children, class_name: 'Channel', foreign_key: 'parent_id', dependent: :nullify, inverse_of: :parent
+  belongs_to :parent, class_name: 'Channel', optional: true, inverse_of: :children
   belongs_to :server
+  has_many :ranks, as: :rankable, dependent: :delete_all
 
   def self.where_or_create_by_discord_api_response!(response_str, server_id:)
     channels = []

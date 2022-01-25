@@ -3,6 +3,7 @@
 class Server < ApplicationRecord
   belongs_to :user
   has_many :channels, dependent: :delete_all
+  has_many :ranks, as: :rankable, dependent: :delete_all
 
   def self.where_or_create_by_discord_api_response!(response_str, user_id:)
     servers = []

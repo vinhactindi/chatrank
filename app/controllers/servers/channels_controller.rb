@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class Servers::ChannelsController < ApplicationController
-  before_action :set_server, only: %i[index create]
+  before_action :set_server, only: %i[index create show]
 
   def index
     @channels = Channel.includes(:children).where(server: @server).where(parent_id: nil)
+    @rank = Rank.monthly(rankable_type: 'Server', rankable_id: @server.id)
   end
 
   def create
@@ -17,7 +18,12 @@ class Servers::ChannelsController < ApplicationController
     redirect_to server_channels_path(@server.id), notice: 'サーバーリストの更新が成功しました'
   end
 
-  def show; end
+  def show
+    @channel = Channel.find(params[:id])
+    redirect_to server_channels_path(@server.id), notice: 'チャットチャネルじゃありません' unless @channel.channel_type.zero?
+
+    @rank = Rank.monthly(rankable_type: 'Channel', rankable_id: @channel.id)
+  end
 
   private
 

@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 namespace :bot do
   desc 'run bot'
   task run: :environment do
-    Bot.instance.message do |event|
-      event.respond "user: #{event.user.id}, server: #{event.server&.id}, channel: #{event.channel.id}"
+    trap('SIGINT') do
+      puts '- Your bot has stopped!'
+      exit
     end
 
-    Bot.instance.run
+    Bot.run
   end
 end

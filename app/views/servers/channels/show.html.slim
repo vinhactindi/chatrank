@@ -1,2 +1,6 @@
-h1 Channels#show
-p Find me in app/views/channels/show.html.slim
+h1
+  = @channel.name
+ol
+  - @rank.each do |rank|
+    li
+      = "#{rank.user.username_discriminator} | #{rank.messages_count} msg"

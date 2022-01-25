@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_22_165914) do
+ActiveRecord::Schema.define(version: 2022_01_23_035618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,19 @@ ActiveRecord::Schema.define(version: 2022_01_22_165914) do
     t.index ["server_id"], name: "index_channels_on_server_id"
   end
 
+  create_table "ranks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "rankable_type"
+    t.bigint "rankable_id"
+    t.integer "messages_count", default: 0, null: false
+    t.string "period"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["rankable_type", "rankable_id", "user_id", "period"], name: "index_user_rankable_with_period", unique: true
+    t.index ["rankable_type", "rankable_id"], name: "index_ranks_on_rankable"
+    t.index ["user_id"], name: "index_ranks_on_user_id"
+  end
+
   create_table "servers", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name"
@@ -36,15 +49,12 @@ ActiveRecord::Schema.define(version: 2022_01_22_165914) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "uid", null: false
-    t.string "provider", null: false
     t.string "username", null: false
     t.string "discriminator", null: false
     t.string "avatar_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "token", default: "", null: false
-    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end
 
   add_foreign_key "channels", "servers"

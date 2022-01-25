@@ -1,5 +1,10 @@
-h1 
+h1
   = @server.name
 = link_to 'Update channels list', server_channels_path(@server), method: :post
 ul
   = render @channels
+= link_to 'Update this server ranking', '#'
+ol
+  - @rank.each do |rank|
+    li
+      = "#{rank.user.username_discriminator} | #{rank.messages_count} msg"
