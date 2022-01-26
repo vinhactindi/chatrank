@@ -16,7 +16,8 @@ class Rank < ApplicationRecord
       u.username = user_name
       u.discriminator = user_discriminator
     end
-    rank = Rank.find_or_create_by!(user_id: user.id, rankable_type: 'Channel', rankable_id: channel_id, period: period)
+    channel = Channel.find_or_create_by!(id: channel_id) { |c| c.server_id = server_id }
+    rank = Rank.find_or_create_by!(user_id: user.id, rankable_type: 'Channel', rankable_id: channel.id, period: period)
     rank.messages_count += 1
     rank.save
   end
