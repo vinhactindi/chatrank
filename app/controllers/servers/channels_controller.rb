@@ -5,7 +5,7 @@ class Servers::ChannelsController < ApplicationController
 
   def index
     @channels = Channel.includes(:children).where(server: @server).where(parent_id: nil)
-    @rank = Rank.monthly(rankable_type: 'Server', rankable_id: @server.id)
+    @ranks = Rank.monthly(rankable_type: 'Server', rankable_id: @server.id)
   end
 
   def create
