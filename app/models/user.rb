@@ -12,13 +12,20 @@ class User < ApplicationRecord
     token = auth_hash[:credentials][:token]
 
     user = User.find_or_create_by!(id: uid) do |u|
-      u.username = name
+      u.username      = name
       u.discriminator = discriminator
     end
 
     user.update({ avatar_url: image_url, token: token })
 
     user
+  end
+
+  def self.find_or_create_by_discord_event!(event)
+    User.find_or_create_by!(id: event.user.id) do |u|
+      u.username      = event.user.name
+      u.discriminator = even.user.discriminator
+    end
   end
 
   def username_discriminator

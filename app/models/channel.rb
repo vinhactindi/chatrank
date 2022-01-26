@@ -16,4 +16,14 @@ class Channel < ApplicationRecord
 
     channels
   end
+
+  def self.find_or_create_by_discord_event!(event)
+    Channel.find_or_create_by!(id: event.channel.id) do |c|
+      c.server_id    = event.server.id
+      c.name         = event.channel.name
+      c.channel_type = event.channel.type
+      c.position     = event.channel.position
+      c.parent_id    = event.channel.parent_id
+    end
+  end
 end

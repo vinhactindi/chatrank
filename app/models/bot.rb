@@ -9,11 +9,7 @@ class Bot
 
   def self.run
     Bot.instance.message do |event|
-      Rank.increment_channel_messages_count!(user_id: event.user.id,
-                                             user_name: event.user.name,
-                                             user_discriminator: event.user.discriminator,
-                                             channel_id: event.channel.id,
-                                             timestamp: event.timestamp)
+      Rank.increment_channel_messages_count_by_discord_event!(event)
     end
 
     Bot.instance.run
