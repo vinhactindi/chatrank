@@ -1,0 +1,17 @@
+h1
+  = @server.name
+= link_to 'Update channels list', server_channels_path(@server), method: :post
+ul
+  = render @channels
+h2
+  | 年月
+ul
+  - @periods.each do |period|
+    li
+      = link_to period, server_channels_path(@server, period: period)
+h2
+  | ランキング
+ol
+  - @ranks.each do |rank|
+    li
+      = "#{rank.user.username_discriminator} | #{rank.messages_count} msg"

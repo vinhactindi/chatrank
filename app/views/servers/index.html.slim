@@ -1,7 +1,7 @@
 h1 Servers
-= link_to 'Update', servers_path, method: :post
+= link_to 'Update servers list', servers_path, method: :post
 
 ul
   - @servers.each do |server|
     li
-      = link_to server.name, server_path(server)
+      = link_to server.name, server_channels_path(server)

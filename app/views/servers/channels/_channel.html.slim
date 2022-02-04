@@ -1,0 +1,8 @@
+li
+  - if channel.channel_type.zero?
+    = link_to channel.name, server_channel_path(@server, channel)
+  - else
+    = channel.name
+  - if channel.children
+    ul
+      = render channel.children

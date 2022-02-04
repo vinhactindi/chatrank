@@ -1,0 +1,6 @@
+h1
+  = @channel.name
+ol
+  - @rank.each do |rank|
+    li
+      = "#{rank.user.username_discriminator} | #{rank.messages_count} msg"
