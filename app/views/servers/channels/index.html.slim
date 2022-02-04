@@ -1,8 +1,2 @@
-nav aria-label='breadcrumb'
-  ol.breadcrumb
-    li.breadcrumb-item
-      = link_to 'サーバー一覧', servers_path
-    li.breadcrumb-item.active aria-current="page"
-      = @server.name
 = render 'selectors', selected_period: @period, selected_channel: @channel, selected_server: @server, periods: @periods, servers: @servers, channels: @channels
 = render 'leaderboard'
