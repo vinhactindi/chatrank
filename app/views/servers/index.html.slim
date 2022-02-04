@@ -1,7 +1,5 @@
-h1 Servers
-= link_to 'Update servers list', servers_path, method: :post
+= link_to 'サーバー一覧を更新する', servers_path, method: :post, class: 'btn btn-primary w-100'
 
-ul
+.list-group.mt-3
   - @servers.each do |server|
-    li
-      = link_to server.name, server_channels_path(server)
+    = link_to server.name, server_channels_path(server), class: 'list-group-item list-group-item-action border-secondary'
