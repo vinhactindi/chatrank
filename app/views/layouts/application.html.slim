@@ -11,10 +11,6 @@ html
   body
     - if current_user.present?
       = render 'layouts/menu'
-    - if notice.present?
-      p#notice
-        = notice
-    - if alert.present?
-      p#alert
-        = alert
-    = yield
+    = render 'layouts/flash'
+    .container.mt-3
+      = yield

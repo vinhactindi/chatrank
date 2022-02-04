@@ -1,6 +1,2 @@
-h1
-  = @channel.name
-ol
-  - @rank.each do |rank|
-    li
-      = "#{rank.user.username_discriminator} | #{rank.messages_count} msg"
+= render 'selectors', selected_period: @period, selected_channel: @channel, selected_server: @server, periods: @periods, servers: @servers, channels: @channels
+= render 'leaderboard'

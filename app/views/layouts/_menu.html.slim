@@ -1,11 +1,7 @@
-.menu-container
-  .title
-    | メニュー
-  ul
-    li
-      = link_to 'Servers', servers_path
-  .title
-    = current_user.username_discriminator
-  ul
-    li
+nav.navbar.navbar-white.bg-white
+  .container
+    .navbar-brand
+    .d-flex
+      .me-2
+        = current_user.username_discriminator
       = link_to 'ログアウト', logout_path, method: :delete
