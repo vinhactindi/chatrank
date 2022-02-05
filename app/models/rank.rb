@@ -24,7 +24,7 @@ class Rank < ApplicationRecord
 
     changes = saved_change_to_attribute(:messages_count)
     changed = saved_change_to_attribute?(:messages_count)
-    by      = changed ? changes[1] - changes[0] : messages_count
+    by      = changed ? changes[1] - changes[0] : 0
     rank    = Rank.find_or_create_by!(user_id: user_id, rankable_type: 'Server', rankable_id: rankable.server_id, period: period)
     rank.messages_count += by
     rank.save

@@ -1,12 +1,11 @@
-.btn-group.me-2
-  button#dropdownPeriodList.btn.btn-sm.btn-outline-secondary.dropdown-toggle type='button' data-bs-toggle='dropdown' aria-expanded='false'
+.mb-3
+  button#dropdownPeriodList.me-2.btn.btn-sm.btn-outline-secondary type='button' data-bs-toggle='dropdown' aria-expanded='false'
     = selected_period
   ul.dropdown-menu.border-secondary.shadow aria-labelledby='dropdownPeriodList'
     - periods.each do |period|
       li
         = link_to period, params.merge(period: period).permit(:period), class: class_names('dropdown-item', active: selected_period == period)
-.btn-group.me-2
-  button#dropdownServersList.btn.btn-sm.btn-outline-secondary.dropdown-toggle type='button' data-bs-toggle='dropdown' aria-expanded='false'
+  button#dropdownServersList.me-2.btn.btn-sm.btn-outline-secondary type='button' data-bs-toggle='dropdown' aria-expanded='false'
     = selected_server.name
   ul.dropdown-menu.border-secondary.shadow aria-labelledby='dropdownServersList'
     li
@@ -16,8 +15,7 @@
     - servers.each do |server|
       li
         = link_to server.name, server_channels_path(server, period: selected_period), class: class_names('dropdown-item', active: server == selected_server)
-.btn-group.me-2
-  button#dropdownChannelsList.btn.btn-sm.btn-outline-secondary.dropdown-toggle type='button' data-bs-toggle='dropdown' aria-expanded='false'
+  button#dropdownChannelsList.me-2.btn.btn-sm.btn-outline-secondary type='button' data-bs-toggle='dropdown' aria-expanded='false'
     = selected_channel&.name || '全てのチャンネル'
   ul.dropdown-menu.border-secondary.shadow aria-labelledby='dropdownChannelsList'
     - if selected_server.present?
@@ -30,3 +28,8 @@
     li
       hr.dropdown-divider
     = render channels
+  button#dropdownHardReset.float-end.btn.btn-sm.btn-outline-secondary type='button' data-bs-toggle='dropdown' aria-expanded='false'
+    | ...
+  ul.dropdown-menu.dropdown-menu-end.border-secondary.shadow aria-labelledby='dropdownHardReset'
+    li
+      = link_to "#{@server.name}のデータを更新", server_path(@server), method: :patch, class: 'dropdown-item'

@@ -2,6 +2,7 @@
 
 class Servers::ChannelsController < ApplicationController
   before_action :set_server, only: %i[index create show]
+  before_action :set_channel, only: :show
   before_action :set_selectors, only: %i[index show]
 
   def index
@@ -9,7 +10,6 @@ class Servers::ChannelsController < ApplicationController
   end
 
   def show
-    @channel = Channel.find(params[:id])
     redirect_to server_channels_path(@server.id), notice: 'チャットチャネルじゃありません' unless @channel.channel_type.zero?
 
     @ranks = Rank.monthly(rankable_type: 'Channel', rankable_id: @channel.id, period: @period)
@@ -29,6 +29,10 @@ class Servers::ChannelsController < ApplicationController
 
   def set_server
     @server = Server.find(params[:server_id])
+  end
+
+  def set_channel
+    @channel = Channel.find(params[:id])
   end
 
   def set_selectors
