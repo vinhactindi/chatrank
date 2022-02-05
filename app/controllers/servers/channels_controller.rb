@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Servers::ChannelsController < ApplicationController
-  before_action :set_server, only: %i[index create show update]
-  before_action :set_channel, only: %i[show update]
+  before_action :set_server, only: %i[index create show]
+  before_action :set_channel, only: :show
   before_action :set_selectors, only: %i[index show]
 
   def index

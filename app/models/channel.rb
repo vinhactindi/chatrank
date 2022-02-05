@@ -41,13 +41,13 @@ class Channel < ApplicationRecord
 
   def update_messages_count!(token)
     messages = all_messages(token)
-    groups   = messages.group_by{ |m| [m['author']['id'], Time.parse(m['timestamp']).strftime('%Y-%m')] }
+    groups   = messages.group_by { |m| [m['author']['id'], Time.zone.parse(m['timestamp']).strftime('%Y-%m')] }
     groups.each do |key, value|
       user_id, period     = key
       user                = User.find_or_create_by!(id: user_id) do |u|
-                              u.username      = value.first['author']['username']
-                              u.discriminator = value.first['author']['discriminator']
-                            end
+        u.username = value.first['author']['username']
+        u.discriminator = value.first['author']['discriminator']
+      end
       messages_count      = value.length
       rank                = Rank.find_or_create_by!(user_id: user.id, rankable_type: 'Channel', rankable_id: id, period: period)
       rank.messages_count = messages_count
