@@ -30,6 +30,9 @@ class Channel < ApplicationRecord
 
   def all_messages(token, before = nil)
     response = Discordrb::API::Channel.messages("Bot #{token}", id, LIMIT_MESSAGES, before, nil)
+  rescue Discordrb::Errors::NoPermission
+    []
+  else
     messages = JSON.parse(response)
 
     if messages.length < LIMIT_MESSAGES
