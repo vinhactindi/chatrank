@@ -5,15 +5,11 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:vue/essential",
     "standard",
     "prettier"
   ],
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "plugins": [
-    "vue"
-  ],
   "rules": {}
 }
