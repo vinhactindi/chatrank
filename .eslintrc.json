@@ -5,11 +5,20 @@
   },
   "extends": [
     "eslint:recommended",
+    "plugin:react/jsx-runtime",
     "standard",
     "prettier"
   ],
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
-  "rules": {}
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "react/jsx-uses-react": "error"
+  }
 }
