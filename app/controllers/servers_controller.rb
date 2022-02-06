@@ -2,7 +2,7 @@
 
 class ServersController < ApplicationController
   def index
-    @servers = Server.all
+    @servers = current_user.servers
   end
 
   def create
