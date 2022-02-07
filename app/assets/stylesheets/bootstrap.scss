@@ -5,4 +5,11 @@ $container-max-widths: (
   xl: 540px
 );
 
-@import "bootstrap/scss/bootstrap";
+@import 'bootstrap/scss/bootstrap';
+
+label {
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 2;
+}
+

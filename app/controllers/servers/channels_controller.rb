@@ -41,6 +41,6 @@ class Servers::ChannelsController < ApplicationController
     @period  = params[:period] || Time.current.strftime('%Y-%m')
     @periods = Rank.distinct.pluck(:period).sort.reverse
     @servers = current_user.servers
-    @channels = Channel.includes(:children).where(server: @server).where(parent_id: nil)
+    @channels = Channel.includes(:children).where(server: @server).where(channel_type: 0)
   end
 end
