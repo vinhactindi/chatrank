@@ -27,7 +27,7 @@ const Selectors = (props) => {
       .then((result) => {
         const updatingOption = {
           value: null,
-          label: '⚒️　更新する'
+          label: '⚒️　更新'
         }
         const servers = result.servers.map((s) => ({
           value: s.id,
@@ -52,7 +52,7 @@ const Selectors = (props) => {
       .then((result) => {
         const updatingOption = {
           value: null,
-          label: '⚒️　更新する'
+          label: '⚒️　更新'
         }
         const channels = result.channels.map((s) => ({
           value: s.id,
