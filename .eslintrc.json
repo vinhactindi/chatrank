@@ -1,19 +1,25 @@
 {
   "env": {
     "node": true,
-    "es2021": true
+    "es2021": true,
+    "browser": true
   },
   "extends": [
     "eslint:recommended",
-    "plugin:vue/essential",
+    "plugin:react/recommended",
     "standard",
     "prettier"
   ],
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "plugins": [
-    "vue"
+    "react"
   ],
-  "rules": {}
+  "rules": {
+    "react/jsx-uses-react": "error"
+  }
 }

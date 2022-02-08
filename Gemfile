@@ -18,6 +18,7 @@ gem 'discordrb'
 gem 'omniauth'
 gem 'omniauth-discord'
 gem 'omniauth-rails_csrf_protection'
+gem 'react-rails'
 gem 'slim-rails'
 
 group :development, :test do
