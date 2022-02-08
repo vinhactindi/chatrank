@@ -27,6 +27,15 @@ const Ranks = () => {
   useEffect(() => {
     if (!selectedPeriod) return
 
+    const updates = ['updated', 'update']
+    if (
+      updates.includes(selectedChannel?.value) ||
+      updates.includes(selectedServer?.value)
+    ) {
+      setRanks([])
+      return
+    }
+
     const url = new URL('http://localhost:3000/ranks.json')
 
     url.searchParams.append('period', selectedPeriod.value)

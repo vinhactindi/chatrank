@@ -7,6 +7,18 @@ const Leaderboard = ({ ranks, loading }) => {
       <div className="loader">
         {loading && <div className="loaderBar"></div>}
       </div>
+      {!loading && ranks.length === 0 && (
+        <div className="mt-3 text-center text-muted">
+          <h6>メッセージはありません</h6>
+          <p>
+            ボットがサーバーとチャネルに参加していることを確認してください
+          </p>
+          <a
+            href={`https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&permissions=68608&scope=bot`}>
+            ここにbotを招待
+          </a>
+        </div>
+      )}
       <ol className="list-group list-group-numbered mt-2">
         {ranks.map((rank) => (
           <li
