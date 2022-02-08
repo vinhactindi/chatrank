@@ -22,20 +22,10 @@ const Ranks = () => {
   })
 
   const [ranks, setRanks] = useState([])
+  const [isUpdatingLeaderboard, setIsUpdatingLeaderboard] = useState(false)
   const [ranksLoading, setRanksLoading] = useState(false)
 
-  useEffect(() => {
-    if (!selectedPeriod) return
-
-    const updates = ['updated', 'update']
-    if (
-      updates.includes(selectedChannel?.value) ||
-      updates.includes(selectedServer?.value)
-    ) {
-      setRanks([])
-      return
-    }
-
+  const loadRanks = () => {
     const url = new URL('http://localhost:3000/ranks.json')
 
     url.searchParams.append('period', selectedPeriod.value)
@@ -52,7 +42,11 @@ const Ranks = () => {
     fetch(url)
       .then((res) => res.json())
       .then((result) => {
-        setRanks(result.ranks)
+        if (result.updating) setIsUpdatingLeaderboard(true)
+        if (result.ranks) {
+          setIsUpdatingLeaderboard(false)
+          setRanks(result.ranks)
+        }
         setRanksLoading(false)
 
         localStorage.setItem('period', JSON.stringify(selectedPeriod))
@@ -62,6 +56,21 @@ const Ranks = () => {
       .catch(() => {
         setRanksLoading(false)
       })
+  }
+
+  useEffect(() => {
+    if (!selectedPeriod) return
+
+    const updates = ['updated', 'update']
+    if (
+      updates.includes(selectedChannel?.value) ||
+      updates.includes(selectedServer?.value)
+    ) {
+      setRanks([])
+      return
+    }
+
+    loadRanks()
   }, [selectedServer, selectedChannel, selectedPeriod])
 
   return (
@@ -74,7 +83,12 @@ const Ranks = () => {
         selectedChannel={selectedChannel}
         onChangeChannel={setSelectedChannel}
       />
-      <Leaderboard ranks={ranks} loading={ranksLoading} />
+      <Leaderboard
+        ranks={ranks}
+        loading={ranksLoading}
+        updating={isUpdatingLeaderboard}
+        onRefresh={loadRanks}
+      />
     </React.Fragment>
   )
 }

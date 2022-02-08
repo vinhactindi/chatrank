@@ -28,8 +28,3 @@
     li
       hr.dropdown-divider
     = render channels
-  button#dropdownHardReset.float-end.btn.btn-sm.btn-outline-secondary type='button' data-bs-toggle='dropdown' aria-expanded='false'
-    | ...
-  ul.dropdown-menu.dropdown-menu-end.border-secondary.shadow aria-labelledby='dropdownHardReset'
-    li
-      = link_to "#{@server.name}のデータを更新", server_path(@server), method: :patch, class: 'dropdown-item'

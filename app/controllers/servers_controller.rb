@@ -19,15 +19,4 @@ class ServersController < ApplicationController
       format.json { render :index, status: :created, location: servers_path }
     end
   end
-
-  def update
-    @server = Server.find(params[:id])
-    @server.ranks.destroy_all
-    @server.channels.each do |channel|
-      channel.ranks.destroy_all
-      channel.update_messages_count!(ENV['DISCORD_BOT_TOKEN'])
-    end
-
-    redirect_to server_channels_path(@server), notice: '各メンバーのメッセージ回数の更新が成功しました'
-  end
 end
