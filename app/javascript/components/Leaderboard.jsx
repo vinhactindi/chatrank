@@ -1,22 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Leaderboard = ({ ranks, loading }) => {
+const Leaderboard = ({ ranks, loading, updating, onRefresh }) => {
   return (
     <React.Fragment>
       <div className="loader">
         {loading && <div className="loaderBar"></div>}
       </div>
-      {!loading && ranks.length === 0 && (
+      {updating && (
         <div className="mt-3 text-center text-muted">
           <h6>メッセージはありません</h6>
           <p>
-            ボットがサーバーとチャネルに参加していることを確認してください
+            過去のメッセージを読み込んで、ランキング一覧を作成中ので、数分がかかるようです。
           </p>
-          <a
-            href={`https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&permissions=68608&scope=bot`}>
-            ここにbotを招待
-          </a>
+          <button type="button" className="btn btn-link" onClick={onRefresh}>
+            リフレッシュ
+          </button>
+        </div>
+      )}
+      {!updating && ranks.length === 0 && (
+        <div className="mt-3 text-center text-muted">
+          <h6>メッセージはありません</h6>
+          <p>
+            botがサーバーとチャネルに参加していることを
+            <a
+              href={`https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&permissions=68608&scope=bot`}>
+              確認
+            </a>
+            してください。
+          </p>
+          <button type="button" className="btn btn-link" onClick={onRefresh}>
+            リフレッシュ
+          </button>
         </div>
       )}
       <ol className="list-group list-group-numbered mt-2">
@@ -40,7 +55,9 @@ const Leaderboard = ({ ranks, loading }) => {
 
 Leaderboard.propTypes = {
   ranks: PropTypes.arrayOf(PropTypes.object),
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  updating: PropTypes.bool,
+  onRefresh: PropTypes.func
 }
 
 export default Leaderboard

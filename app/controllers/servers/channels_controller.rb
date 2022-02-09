@@ -1,18 +1,13 @@
 # frozen_string_literal: true
 
 class Servers::ChannelsController < ApplicationController
+  add_breadcrumb 'ホーム', :root_path
+  add_breadcrumb 'サーバー', :servers_path
+
   before_action :set_server
-  before_action :set_channel, only: :show
-  before_action :set_selectors, only: %i[index show]
 
   def index
-    @ranks = Rank.monthly(rankable_type: 'Server', rankable_id: @server.id, period: @period)
-  end
-
-  def show
-    redirect_to server_channels_path(@server.id), notice: 'チャットチャネルじゃありません' unless @channel.channel_type.zero?
-
-    @ranks = Rank.monthly(rankable_type: 'Channel', rankable_id: @channel.id, period: @period)
+    @channels = Channel.includes(:children).where(server: @server).where(channel_type: 0)
   end
 
   def create
@@ -30,7 +25,8 @@ class Servers::ChannelsController < ApplicationController
       @channels = Channel.where_or_create_by_discord_api_response!(response, server_id: @server.id)
       @channels.select! { |channel| channel.channel_type.zero? }
 
-      format.html { render :index, notice: 'サーバーリストの更新が成功しました' }
+      flash.now[:notice] = 'サーバーリストの更新が成功しました'
+      format.html { render :index }
       format.json { render :index, status: :created, location: server_channels_path(@server.id) }
     end
   end
@@ -39,16 +35,6 @@ class Servers::ChannelsController < ApplicationController
 
   def set_server
     @server = Server.find(params[:server_id])
-  end
-
-  def set_channel
-    @channel = Channel.find(params[:id])
-  end
-
-  def set_selectors
-    @period  = params[:period] || Time.current.strftime('%Y-%m')
-    @periods = Rank.distinct.pluck(:period).sort.reverse
-    @servers = current_user.servers
-    @channels = Channel.includes(:children).where(server: @server).where(channel_type: 0)
+    add_breadcrumb @server.name
   end
 end

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class ServersController < ApplicationController
+  add_breadcrumb 'ホーム', :root_path
+  add_breadcrumb 'サーバー'
+
   def index
     @servers = current_user.servers
   end
@@ -15,19 +18,9 @@ class ServersController < ApplicationController
     else
       @servers = Server.where_or_create_by_discord_api_response!(response, user_id: current_user.id)
 
-      format.html { render :index, notice: 'サーバーリストの更新が成功しました' }
+      flash.now[:notice] = 'サーバーリストの更新が成功しました'
+      format.html { render :index }
       format.json { render :index, status: :created, location: servers_path }
     end
-  end
-
-  def update
-    @server = Server.find(params[:id])
-    @server.ranks.destroy_all
-    @server.channels.each do |channel|
-      channel.ranks.destroy_all
-      channel.update_messages_count!(ENV['DISCORD_BOT_TOKEN'])
-    end
-
-    redirect_to server_channels_path(@server), notice: '各メンバーのメッセージ回数の更新が成功しました'
   end
 end

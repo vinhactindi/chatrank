@@ -2,6 +2,13 @@ nav.navbar.navbar-white.bg-white
   .container
     .navbar-brand
     .d-flex
-      .me-2
-        = current_user.username_discriminator
-      = link_to 'ログアウト', logout_path, method: :delete
+      .dropdown
+        button#dropdownMenu.btn.btn-link.btn-sm.p-0 data-bs-toggle='dropdown' aria-expanded='false'
+          = current_user.username_discriminator
+        ul.dropdown-menu.dropdown-menu-end.shadow aria-labelledby="dropdownMenu"
+          li
+            = link_to 'ボットを招待', invite_bot_url, class: 'dropdown-item'
+          li
+            hr.dropdown-divider
+          li
+            = link_to 'ログアウト', logout_path, method: :delete, class: 'dropdown-item text-danger'

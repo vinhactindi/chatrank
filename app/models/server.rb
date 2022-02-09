@@ -18,4 +18,15 @@ class Server < ApplicationRecord
 
     servers
   end
+
+  def read_history_messages
+    if update(updating: true)
+      ranks.destroy_all
+      channels.each do |channel|
+        channel.ranks.destroy_all
+        channel.update_messages_count!(ENV['DISCORD_BOT_TOKEN'])
+      end
+    end
+    update(updating: false)
+  end
 end
