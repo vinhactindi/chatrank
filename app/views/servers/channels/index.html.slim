@@ -1,2 +1,6 @@
-= render 'selectors', selected_period: @period, selected_channel: @channel, selected_server: @server, periods: @periods, servers: @servers, channels: @channels
-= render 'leaderboard'
+= link_to 'チャンネル一覧を更新する', server_channels_path(@server), method: :post, class: 'btn btn-primary btn-sm w-100'
+
+.list-group.mt-3
+  - @channels.each do |channel|
+    li.list-group-item.border-secondary
+      = channel.name

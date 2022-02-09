@@ -14,6 +14,7 @@ gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 
+gem 'breadcrumbs_on_rails'
 gem 'discordrb'
 gem 'omniauth'
 gem 'omniauth-discord'

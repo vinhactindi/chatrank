@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete '/logout' => 'sessions#destroy'
 
   resources :servers, only: %i[index create] do
-    resources :channels, only: %i[index create show], controller: 'servers/channels'
+    resources :channels, only: %i[index create], controller: 'servers/channels'
     resources :periods, only: :index, controller: 'servers/periods'
   end
 

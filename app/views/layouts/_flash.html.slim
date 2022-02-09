@@ -1,7 +1,9 @@
 .container.mt-3
   - if notice.present?
-    .alert.alert-success role='alert'
+    .alert.alert-success.alert-dismissible role='alert'
       = notice
+      button.btn-close data-bs-dismiss='alert' aria-label='Close'
   - if alert.present?
-    .alert.alert-danger role='alert'
+    .alert.alert-danger.alert-dismissible role='alert'
       = alert
+      button.btn-close data-bs-dismiss='alert' aria-label='Close'
