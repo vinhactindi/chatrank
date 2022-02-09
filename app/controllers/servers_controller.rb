@@ -23,4 +23,16 @@ class ServersController < ApplicationController
       format.json { render :index, status: :created, location: servers_path }
     end
   end
+
+  def update
+    @server = Server.find(params[:id])
+
+    ReadHistoryMessagesJob.perform_later(@server) unless @server.updating
+
+    respond_to do |format|
+      flash[:notice] = '過去のメッセージを読み込んでいますので、後で戻ってください'
+      format.html { redirect_to root_path }
+      format.json { head :no_content }
+    end
+  end
 end
