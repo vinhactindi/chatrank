@@ -4,3 +4,5 @@
   - @channels.each do |channel|
     li.list-group-item.border-secondary
       = channel.name
+
+= link_to 'Read History Messages', server_path(@server), method: :patch, class: 'btn btn-primary btn-sm w-100 mt-3'

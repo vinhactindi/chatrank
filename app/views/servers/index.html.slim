@@ -2,4 +2,11 @@
 
 .list-group.mt-3
   - @servers.each do |server|
-    = link_to server.name, server_channels_path(server), class: 'list-group-item list-group-item-action border-secondary'
+    .list-group-item.border-secondary
+      .d-flex.w-100.justify-content-between
+        = link_to server.name, server_channels_path(server), class: 'text-decoration-none'
+        small
+          - if !server.updating
+            = link_to '過去統計', server_path(server), method: :patch, class: 'btn btn-secondary btn-sm py-0'
+          - else
+            | 進行中

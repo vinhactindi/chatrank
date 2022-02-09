@@ -190,7 +190,7 @@ const Selectors = (props) => {
       <div className="row">
         <div className="col-5 pe-1">
           <label id="server-label" htmlFor="server-input">
-            サーバー
+            <a className="text-decoration-none" href="/servers">サーバー</a>
           </label>
           <Select
             components={{
