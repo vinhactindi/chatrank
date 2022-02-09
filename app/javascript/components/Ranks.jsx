@@ -26,7 +26,12 @@ const Ranks = () => {
   const [ranksLoading, setRanksLoading] = useState(false)
 
   const loadRanks = () => {
-    const url = new URL('http://localhost:3000/ranks.json')
+    const url = new URL(
+      `${window.location.protocol}//${window.location.hostname}${
+        window.location.port && `:${window.location.port}`
+      }/ranks.json`
+    )
+    console.log(url)
 
     url.searchParams.append('period', selectedPeriod.value)
 

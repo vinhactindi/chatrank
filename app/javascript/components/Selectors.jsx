@@ -34,7 +34,7 @@ const Selectors = (props) => {
 
   const handleFocusServerSelect = () => {
     setServersLoading(true)
-    fetch('http://localhost:3000/servers.json')
+    fetch('/servers.json')
       .then((res) => res.json())
       .then((result) => {
         const servers = result.servers.map((s) => ({
@@ -58,7 +58,7 @@ const Selectors = (props) => {
 
     setChannelsLoading(true)
     fetch(
-      `http://localhost:3000/servers/${props.selectedServer.value}/channels.json`
+      `/servers/${props.selectedServer.value}/channels.json`
     )
       .then((res) => res.json())
       .then((result) => {
@@ -82,7 +82,7 @@ const Selectors = (props) => {
 
     setPeriodsLoading(true)
     fetch(
-      `http://localhost:3000/servers/${props.selectedServer.value}/periods.json`
+      `/servers/${props.selectedServer.value}/periods.json`
     )
       .then((res) => res.json())
       .then((result) => {
@@ -102,7 +102,7 @@ const Selectors = (props) => {
     setChannels([])
     const csrfToken = document.querySelector("[name='csrf-token']").content
 
-    fetch('http://localhost:3000/servers.json', {
+    fetch('/servers.json', {
       method: 'POST',
       headers: {
         'X-CSRF-TOKEN': csrfToken,
@@ -133,7 +133,7 @@ const Selectors = (props) => {
     setChannelsLoading(true)
     const csrfToken = document.querySelector("[name='csrf-token']").content
 
-    fetch(`http://localhost:3000/servers/${serverId}/channels.json`, {
+    fetch(`/servers/${serverId}/channels.json`, {
       method: 'POST',
       headers: {
         'X-CSRF-TOKEN': csrfToken,
