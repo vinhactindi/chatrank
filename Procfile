@@ -1,2 +1,2 @@
-web: bundle exec rails server -p $PORT
-worker: bundle exec rails bot:run
+web: bin/rails server -p ${PORT:-5000} -e $RAILS_ENV
+worker: bin/rails bot:run
