@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  has_many :servers, dependent: :delete_all
-  has_many :ranks, dependent: :delete_all
+  has_many :own_servers, class_name: 'Server', dependent: :nullify
+  has_many :ranks, dependent: :destroy
+  has_many :guilds, dependent: :destroy
+  has_many :servers, through: :guilds
 
   def self.find_or_create_from_auth_hash!(auth_hash)
     uid = auth_hash[:uid]
@@ -30,5 +32,12 @@ class User < ApplicationRecord
 
   def username_discriminator
     "#{username}##{discriminator}"
+  end
+
+  def manage?(server)
+    guild = guilds.find_by(server: server)
+    return Discordrb::Permissions.new(guild.permissions).manage_server if guild
+
+    false
   end
 end

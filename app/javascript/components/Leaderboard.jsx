@@ -1,13 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Leaderboard = ({ ranks, loading, updating, onRefresh }) => {
+const Leaderboard = ({ ranks }) => {
   return (
     <React.Fragment>
-      <div className="loader">
-        {loading && <div className="loaderBar"></div>}
-      </div>
-      {updating && (
+      {/* {updating && (
         <div className="mt-3 text-center text-muted">
           <h6>メッセージはありません</h6>
           <p>
@@ -33,7 +30,7 @@ const Leaderboard = ({ ranks, loading, updating, onRefresh }) => {
             リフレッシュ
           </button>
         </div>
-      )}
+      )} */}
       <ol className="list-group list-group-numbered mt-2">
         {ranks.map((rank) => (
           <li
@@ -55,7 +52,6 @@ const Leaderboard = ({ ranks, loading, updating, onRefresh }) => {
 
 Leaderboard.propTypes = {
   ranks: PropTypes.arrayOf(PropTypes.object),
-  loading: PropTypes.bool,
   updating: PropTypes.bool,
   onRefresh: PropTypes.func
 }
