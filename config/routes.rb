@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :servers, only: %i[index create update show] do
     resources :channels, only: %i[index create], controller: 'servers/channels'
     resources :periods, only: :index, controller: 'servers/periods'
+    resources :members, only: :index, controller: 'servers/members'
   end
 
   resources :ranks, only: :index

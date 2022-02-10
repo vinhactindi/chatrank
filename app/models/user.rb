@@ -27,6 +27,8 @@ class User < ApplicationRecord
     User.find_or_create_by!(id: event.user.id) do |u|
       u.username      = event.user.name
       u.discriminator = even.user.discriminator
+
+      Guild.find_or_create_by!(user_id: event.user.id, server_id: event.server.id)
     end
   end
 
@@ -36,7 +38,7 @@ class User < ApplicationRecord
 
   def manage?(server)
     guild = guilds.find_by(server: server)
-    return Discordrb::Permissions.new(guild.permissions).manage_server if guild
+    return Discordrb::Permissions.new(guild.permissions_or_zero).manage_server if guild
 
     false
   end

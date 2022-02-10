@@ -26,19 +26,17 @@ class Server < ApplicationRecord
   end
 
   def read_history_messages
-    if update(updating: true)
-      ranks.destroy_all
-      channels.each do |channel|
-        channel.ranks.destroy_all
-        channel.update_messages_count!(ENV['DISCORD_BOT_TOKEN'])
-      end
+    ranks.destroy_all
+    channels.each do |channel|
+      channel.ranks.destroy_all
+      channel.update_messages_count!(ENV['DISCORD_BOT_TOKEN'])
     end
     update(updating: false)
   end
 
   def manage_by?(user)
     guild = guilds.find_by(user: user)
-    return Discordrb::Permissions.new(guild.permissions).manage_server if guild
+    return Discordrb::Permissions.new(guild.permissions_or_zero).manage_server if guild
 
     false
   end

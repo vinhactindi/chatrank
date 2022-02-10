@@ -32,16 +32,15 @@ class ServersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @server.channels.any?
-        ReadHistoryMessagesJob.perform_later(@server) unless @server.updating
-        flash[:notice] = '過去のメッセージを読み込んでいますので、後で戻ってください'
-      else
-        flash[:alert] = '最初にチャネル一覧を更新してください'
-      end
-      format.html { redirect_to root_path }
-      format.json { render json: { flash: flash.to_h } }
+    if @server.channels.empty?
+      flash.now[:alert] = '最初にチャネル一覧を更新してください'
+    elsif @server.updating
+      flash.now[:notice] = '過去のメッセージを読み込んでいますので、後で戻ってください'
+    elsif @server.update(updating: true)
+      flash.now[:notice] = '過去のメッセージを読み込んでいますので、後で戻ってください'
+      ReadHistoryMessagesJob.perform_later(@server)
     end
+    render :show
   end
 
   private

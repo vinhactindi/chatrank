@@ -3,7 +3,12 @@
     = @server.name
   .text-center.mb-3
     = link_to 'チャンネル一覧', server_channels_path(@server)
+    span.m-2 ・
+    = link_to 'メンバー一覧', server_members_path(@server)
   p
     | このボタンを押すと、システムはこのDiscord Server内のすべてのメッセージを一覧表示します。 これには時間がかかりますので、この機能の使用を検討してください。
   hr
-  = link_to '過去統計', server_path(@server), method: :patch, class: 'btn btn-warning btn-lg', data: { confirm: 'よろしいですか?' }
+  - if @server.updating
+    button.btn.btn-warning.btn-lg disabled=true 過去統計中
+  - else
+    = link_to '過去統計', server_path(@server), method: :patch, class: 'btn btn-warning btn-lg', data: { confirm: 'よろしいですか?' }
