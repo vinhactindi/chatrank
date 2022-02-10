@@ -2,7 +2,7 @@
 
 class ServersController < ApplicationController
   add_breadcrumb 'ホーム', :root_path
-  add_breadcrumb 'サーバー'
+  add_breadcrumb '参加したサーバー', :servers_path
 
   before_action :set_server, only: %i[show update]
   before_action :logged_in_manager!, only: %i[show update]
@@ -11,7 +11,9 @@ class ServersController < ApplicationController
     @servers = current_user.servers
   end
 
-  def show; end
+  def show
+    add_breadcrumb @server.name, server_path(@server)
+  end
 
   def create
     respond_to do |format|
@@ -49,6 +51,6 @@ class ServersController < ApplicationController
   end
 
   def logged_in_manager!
-    redirect_to root_path, alert: 'あなたはこのサーバーの管理者ではありません' unless current_user.manage? @server
+    redirect_to servers_path, alert: 'あなたはこのサーバーの管理者ではありません' unless current_user.manage? @server
   end
 end

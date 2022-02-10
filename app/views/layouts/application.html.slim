@@ -11,7 +11,7 @@ html
   body
     - if current_user.present?
       = render 'layouts/menu'
-    / = render 'layouts/breadcrumb'
+    = render 'layouts/breadcrumb'
     = render 'layouts/flash'
     .container.my-3
       = yield

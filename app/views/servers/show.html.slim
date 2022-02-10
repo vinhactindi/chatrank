@@ -1,10 +1,9 @@
 .text-center.mt-3
   h1
     = @server.name
+  .text-center.mb-3
+    = link_to 'チャンネル一覧', server_channels_path(@server)
   p
     | このボタンを押すと、システムはこのDiscord Server内のすべてのメッセージを一覧表示します。 これには時間がかかりますので、この機能の使用を検討してください。
   hr
-  = link_to '過去統計', server_path(@server), method: :patch, class: 'btn btn-warning btn-lg'
-  h5.my-3.text-muted
-    | * * *
-  = link_to 'ホームに戻る', root_path, class: 'btn btn-link'
+  = link_to '過去統計', server_path(@server), method: :patch, class: 'btn btn-warning btn-lg', data: { confirm: 'よろしいですか?' }

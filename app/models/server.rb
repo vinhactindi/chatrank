@@ -4,6 +4,8 @@ class Server < ApplicationRecord
   belongs_to :user, optional: true
   has_many :channels, dependent: :delete_all
   has_many :ranks, as: :rankable, dependent: :delete_all
+  has_many :guilds, dependent: :destroy
+  has_many :users, through: :guilds
 
   def self.where_or_create_by_discord_api_response!(response_str, user_id:)
     servers = []
@@ -32,5 +34,12 @@ class Server < ApplicationRecord
       end
     end
     update(updating: false)
+  end
+
+  def manage_by?(user)
+    guild = guilds.find_by(user: user)
+    return Discordrb::Permissions.new(guild.permissions).manage_server if guild
+
+    false
   end
 end
