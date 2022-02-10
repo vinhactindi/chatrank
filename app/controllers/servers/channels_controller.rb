@@ -10,11 +10,11 @@ class Servers::ChannelsController < Servers::BaseController
     respond_to do |format|
       response = Discordrb::API::Server.channels("Bot #{ENV['DISCORD_BOT_TOKEN']}", @server.id)
     rescue RestClient::Unauthorized, RestClient::Forbidden
-      flash[:error] = '期限切れのトークン、もう一度ログインしてください'
+      flash.now[:error] = '期限切れのトークン、もう一度ログインしてください'
       format.html { redirect_to server_channels_path(@server.id) }
       format.json { render json: { flash: flash.to_h } }
     rescue Discordrb::Errors::NoPermission
-      flash[:alert] = 'ボットはこのサーバーに招待されていません'
+      flash.now[:alert] = 'ボットはこのサーバーに招待されていません'
       format.html { redirect_to server_channels_path(@server.id) }
       format.json { render json: { flash: flash.to_h } }
     else
