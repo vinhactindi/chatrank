@@ -3,6 +3,6 @@
 class Servers::MembersController < Servers::BaseController
   def index
     add_breadcrumb 'メンバー一覧'
-    @members = @server.users
+    @members = @server.users.order(:username)
   end
 end

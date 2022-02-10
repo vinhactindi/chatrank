@@ -3,7 +3,7 @@
 class Servers::ChannelsController < Servers::BaseController
   def index
     add_breadcrumb 'チャンネル一覧'
-    @channels = Channel.includes(:children).where(server: @server).where(channel_type: 0)
+    @channels = Channel.includes(:children).where(server: @server).where(channel_type: 0).order(:name)
   end
 
   def create

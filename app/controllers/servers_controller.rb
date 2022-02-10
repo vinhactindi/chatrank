@@ -8,7 +8,7 @@ class ServersController < ApplicationController
   before_action :logged_in_manager!, only: %i[show update]
 
   def index
-    @servers = current_user.servers
+    @servers = current_user.servers.order(:name)
   end
 
   def show
