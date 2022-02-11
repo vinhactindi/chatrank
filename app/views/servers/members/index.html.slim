@@ -1,0 +1,7 @@
+.list-group.mt-3
+  - @members.each do |member|
+    li.list-group-item.border-secondary
+      .d-flex.w-100.justify-content-between
+        = member.username_discriminator
+        - if @server.manage_by? member
+          span 管理者

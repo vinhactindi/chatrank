@@ -3,9 +3,11 @@ nav.navbar.navbar-white.bg-white
     .navbar-brand
     .d-flex
       .dropdown
-        button#dropdownMenu.btn.btn-link.btn-sm.p-0 data-bs-toggle='dropdown' aria-expanded='false'
+        button#dropdownMenu.btn.btn-link.btn-sm.p-0.text-decoration-none data-bs-toggle='dropdown' aria-expanded='false'
           = current_user.username_discriminator
         ul.dropdown-menu.dropdown-menu-end.shadow aria-labelledby="dropdownMenu"
+          li
+            = link_to '参加したサーバー', servers_path, class: 'dropdown-item'
           li
             = link_to 'ボットを招待', invite_bot_url, class: 'dropdown-item'
           li

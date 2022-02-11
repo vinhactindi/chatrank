@@ -11,13 +11,13 @@ const styles = {
 }
 
 const updatingOption = {
-  value: 'update',
-  label: '⚒️　更新'
+  id: 'update',
+  name: '⚒️　更新'
 }
 
 const updatedOption = {
-  value: 'updated',
-  label: '✅　更新しました'
+  id: 'updated',
+  name: '✅　更新しました'
 }
 
 const Selectors = (props) => {
@@ -30,18 +30,12 @@ const Selectors = (props) => {
   const [periods, setPeriods] = useState([])
   const [periodsLoading, setPeriodsLoading] = useState(false)
 
-  const [alert, setAlert] = useState(null)
-
   const handleFocusServerSelect = () => {
     setServersLoading(true)
     fetch('/servers.json')
       .then((res) => res.json())
       .then((result) => {
-        const servers = result.servers.map((s) => ({
-          value: s.id,
-          label: s.name
-        }))
-        setServers([updatingOption, ...servers])
+        setServers([updatingOption, ...result.servers])
         setServersLoading(false)
       })
       .catch(() => {
@@ -52,21 +46,15 @@ const Selectors = (props) => {
   const handleFocusChannelSelect = () => {
     if (
       !props.selectedServer ||
-      ['update', 'updated'].includes(props.selectedServer.value)
+      ['update', 'updated'].includes(props.selectedServer.id)
     )
       return
 
     setChannelsLoading(true)
-    fetch(
-      `/servers/${props.selectedServer.value}/channels.json`
-    )
+    fetch(`/servers/${props.selectedServer.id}/channels.json`)
       .then((res) => res.json())
       .then((result) => {
-        const channels = result.channels.map((s) => ({
-          value: s.id,
-          label: s.name
-        }))
-        setChannels([updatingOption, ...channels])
+        setChannels([updatingOption, ...result.channels])
       })
       .finally(() => {
         setChannelsLoading(false)
@@ -76,14 +64,12 @@ const Selectors = (props) => {
   const handleFocusPeriodSelect = () => {
     if (
       !props.selectedServer ||
-      ['update', 'updated'].includes(props.selectedServer.value)
+      ['update', 'updated'].includes(props.selectedServer.id)
     )
       return
 
     setPeriodsLoading(true)
-    fetch(
-      `/servers/${props.selectedServer.value}/periods.json`
-    )
+    fetch(`/servers/${props.selectedServer.id}/periods.json`)
       .then((res) => res.json())
       .then((result) => {
         const periods = result.periods.map((s) => ({
@@ -111,17 +97,13 @@ const Selectors = (props) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        if (result.alert) {
-          setAlert(result.alert)
-          props.onChangeServer(null)
+        if (result.flash) {
+          props.onMessage(result.flash)
+          props.onChangeServer(updatedOption)
           return
         }
 
-        const servers = result.servers.map((s) => ({
-          value: s.id,
-          label: s.name
-        }))
-        setServers([updatingOption, ...servers])
+        setServers([updatingOption, ...result.servers])
         props.onChangeServer(updatedOption)
       })
       .finally(() => {
@@ -142,17 +124,13 @@ const Selectors = (props) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        if (result.alert) {
-          setAlert(result.alert)
-          props.onChangeChannel(null)
+        if (result.flash) {
+          props.onMessage(result.flash)
+          props.onChangeChannel(updatedOption)
           return
         }
 
-        const channels = result.channels.map((s) => ({
-          value: s.id,
-          label: s.name
-        }))
-        setChannels([updatingOption, ...channels])
+        setChannels([updatingOption, ...result.channels])
         props.onChangeChannel(updatedOption)
       })
       .finally(() => {
@@ -161,36 +139,24 @@ const Selectors = (props) => {
   }
 
   const handleSelectServer = (server) => {
-    setAlert(null)
-    if (server?.value === 'update') updateServersList()
+    if (server?.id === 'update') updateServersList()
 
     props.onChangeServer(server)
     props.onChangeChannel(null)
   }
 
   const handleSelectChannel = (channel) => {
-    setAlert(null)
-    if (channel?.value === 'update')
-      updateChannelsList(props.selectedServer.value)
+    if (channel?.id === 'update') updateChannelsList(props.selectedServer.id)
 
     props.onChangeChannel(channel)
   }
 
   return (
     <React.Fragment>
-      {alert && (
-        <div className={`alert alert-${alert.type} alert-dismissible`}>
-          {alert.message}
-          <button
-            type="button"
-            className="btn-close"
-            onClick={() => setAlert(null)}></button>
-        </div>
-      )}
       <div className="row">
         <div className="col-5 pe-1">
           <label id="server-label" htmlFor="server-input">
-            <a className="text-decoration-none" href="/servers">サーバー</a>
+            サーバー
           </label>
           <Select
             components={{
@@ -200,6 +166,8 @@ const Selectors = (props) => {
             className="mb-2"
             aria-labelledby="server-label"
             inputId="server-input"
+            getOptionLabel={(option) => option.name}
+            getOptionValue={(option) => option.id}
             value={props.selectedServer}
             onChange={handleSelectServer}
             options={servers}
@@ -222,6 +190,8 @@ const Selectors = (props) => {
             aria-labelledby="channel-label"
             inputId="channel-input"
             value={props.selectedChannel}
+            getOptionLabel={(option) => option.name}
+            getOptionValue={(option) => option.id}
             onChange={handleSelectChannel}
             options={channels}
             onFocus={handleFocusChannelSelect}
@@ -262,7 +232,8 @@ Selectors.propTypes = {
   selectedPeriod: PropTypes.object,
   onChangeServer: PropTypes.func,
   onChangeChannel: PropTypes.func,
-  onChangePeriod: PropTypes.func
+  onChangePeriod: PropTypes.func,
+  onMessage: PropTypes.func
 }
 
 export default Selectors

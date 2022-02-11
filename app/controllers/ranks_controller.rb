@@ -10,10 +10,12 @@ class RanksController < ApplicationController
                end
 
       if server&.updating
-        format.json { render json: { updating: true } }
+        flash.now[:alert] = '過去のメッセージを読み込んで、ランキング一覧を作成中ので、数分がかかるようです。'
+        format.json { render json: { updating: true, flash: flash.to_h } }
       else
         @ranks = Rank.monthly(rankable_type: params[:rankable_type], rankable_id: params[:rankable_id], period: params[:period])
 
+        flash.now[:notice] = 'メッセージがありません！ボットがサーバーにあることを確認してください。' if @ranks.empty?
         format.json
       end
     end

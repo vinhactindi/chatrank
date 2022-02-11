@@ -1,12 +1,13 @@
-= link_to 'サーバー一覧を更新する', servers_path, method: :post, class: 'btn btn-primary btn-sm w-100'
-
+.text-end
+  = link_to 'サーバー一覧を更新する', servers_path, method: :post, class: 'btn btn-link text-decoration-none p-0'
 .list-group.mt-3
   - @servers.each do |server|
-    .list-group-item.border-secondary
+    = link_to server_path(server), class: 'list-group-item list-group-item-action border-secondary' do
       .d-flex.w-100.justify-content-between
-        = link_to server.name, server_channels_path(server), class: 'text-decoration-none'
-        small
-          - if !server.updating
-            = link_to '過去統計', server_path(server), method: :patch, class: 'btn btn-secondary btn-sm py-0'
-          - else
-            | 進行中
+        = server.name
+        span
+          - if server.updating
+            span.me-2.text-danger
+              | 進行中
+          - if current_user.manage? server
+            span.text-primary 管理者
