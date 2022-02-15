@@ -2,6 +2,9 @@
   - @members.each do |member|
     li.list-group-item.border-secondary
       .d-flex.w-100.justify-content-between
-        = member.username_discriminator
+        span
+          - if member.avatar_url.present?
+            img.rounded-circle.me-1.align-text-bottom src=member.avatar_url alt='avatar' width=18
+          = member.username_discriminator
         - if @server.manage_by? member
           span 管理者

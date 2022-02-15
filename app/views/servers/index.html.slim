@@ -4,7 +4,10 @@
   - @servers.each do |server|
     = link_to server_path(server), class: 'list-group-item list-group-item-action border-secondary' do
       .d-flex.w-100.justify-content-between
-        = server.name
+        span
+          - if server.icon_url.present?
+            img.rounded-circle.me-1.align-text-bottom src=server.icon_url alt='icon' width=18
+          = server.name
         span
           - if server.updating
             span.me-2.text-danger
