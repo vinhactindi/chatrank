@@ -7,6 +7,10 @@ const styles = {
     ...base,
     borderColor: isFocused ? '#86b7fe' : '#6c757d',
     boxShadow: isFocused ? '0 0 0 0.25rem rgb(13 110 253 / 25%)' : 'none'
+  }),
+  option: (base) => ({
+    ...base,
+    borderBottom: '1px dotted'
   })
 }
 
@@ -97,13 +101,9 @@ const Selectors = (props) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        if (result.flash) {
-          props.onMessage(result.flash)
-          props.onChangeServer(updatedOption)
-          return
-        }
-
-        setServers([updatingOption, ...result.servers])
+        const servers = result.servers || []
+        if (result.flash) props.onMessage(result.flash)
+        setServers([updatingOption, ...servers])
         props.onChangeServer(updatedOption)
       })
       .finally(() => {
@@ -124,13 +124,9 @@ const Selectors = (props) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        if (result.flash) {
-          props.onMessage(result.flash)
-          props.onChangeChannel(updatedOption)
-          return
-        }
-
-        setChannels([updatingOption, ...result.channels])
+        const channels = result.channels || []
+        if (result.flash) props.onMessage(result.flash)
+        setChannels([updatingOption, ...channels])
         props.onChangeChannel(updatedOption)
       })
       .finally(() => {
@@ -177,7 +173,7 @@ const Selectors = (props) => {
             styles={styles}
           />
         </div>
-        <div className="col-4 px-1">
+        <div className="col px-1">
           <label id="channel-label" htmlFor="channel-input">
             チャンネル
           </label>
@@ -217,8 +213,9 @@ const Selectors = (props) => {
             options={periods}
             isLoading={periodsLoading}
             onFocus={handleFocusPeriodSelect}
-            placeholder="選択..."
+            placeholder="今月"
             styles={styles}
+            isClearable
           />
         </div>
       </div>

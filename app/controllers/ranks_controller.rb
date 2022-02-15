@@ -3,13 +3,17 @@
 class RanksController < ApplicationController
   def index
     respond_to do |format|
-      server = if params[:rankable_type] == 'Server'
-                 Server.find(params[:rankable_id])
-               else
-                 Channel.find(params[:rankable_id]).server
-               end
+      @server = case params[:rankable_type]
+                when 'Server'
+                  Server.find(params[:rankable_id])
+                when 'Channel'
+                  Channel.find(params[:rankable_id]).server
+                end
 
-      if server&.updating
+      current_user.last_seen_server = @server
+      current_user.save
+
+      if @server&.updating
         flash.now[:alert] = '過去のメッセージを読み込んで、ランキング一覧を作成中ので、数分がかかるようです。'
         format.json { render json: { updating: true, flash: flash.to_h } }
       else

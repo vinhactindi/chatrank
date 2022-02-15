@@ -4,28 +4,24 @@ import Leaderboard from './Leaderboard'
 import LoadingBar from './LoadingBar'
 import ManagerActions from './ManagerActions'
 import Selectors from './Selectors'
+import PropTypes from 'prop-types'
 
-const localStorageSavedOption = (key) => {
-  const saved = localStorage.getItem(key)
-  const initialValue = JSON.parse(saved)
-  return initialValue || null
-}
+const thisMonth = new Date().toISOString().slice(0, 7)
 
-const Ranks = () => {
-  const [selectedServer, setSelectedServer] = useState(() =>
-    localStorageSavedOption('server')
-  )
+const Ranks = ({ lastSeenServer }) => {
+  const [selectedServer, setSelectedServer] = useState(() => {
+    if (!lastSeenServer) return null
 
-  const [selectedChannel, setSelectedChannel] = useState(() =>
-    localStorageSavedOption('channel')
-  )
+    return lastSeenServer
+  })
 
-  const [selectedPeriod, setSelectedPeriod] = useState(() =>
-    localStorageSavedOption('period')
-  )
+  const [selectedChannel, setSelectedChannel] = useState(null)
+
+  const [selectedPeriod, setSelectedPeriod] = useState(null)
 
   const [ranks, setRanks] = useState([])
   const [ranksLoading, setRanksLoading] = useState(false)
+  const [isManager, setIsManager] = useState(false)
 
   const [flash, setFlash] = useState(null)
 
@@ -36,7 +32,10 @@ const Ranks = () => {
       }/ranks.json`
     )
 
-    url.searchParams.append('period', selectedPeriod.value)
+    url.searchParams.append(
+      'period',
+      selectedPeriod ? selectedPeriod.value : thisMonth
+    )
 
     if (selectedChannel) {
       url.searchParams.append('rankable_type', 'Channel')
@@ -52,6 +51,7 @@ const Ranks = () => {
       .then((result) => {
         if (result.flash) setFlash(result.flash)
         if (result.ranks) setRanks(result.ranks)
+        if (result.manager) setIsManager(result.manager)
         setRanksLoading(false)
 
         localStorage.setItem('period', JSON.stringify(selectedPeriod))
@@ -64,9 +64,9 @@ const Ranks = () => {
   }
 
   useEffect(() => {
-    if (!selectedPeriod) return
-
     setRanks([])
+    setIsManager(false)
+
     const updates = ['updated', 'update']
     if (
       updates.includes(selectedChannel?.id) ||
@@ -90,11 +90,15 @@ const Ranks = () => {
         onMessage={setFlash}
       />
       <LoadingBar isLoading={ranksLoading} />
-      <ManagerActions server={selectedServer} />
+      <ManagerActions server={selectedServer} isManager={isManager} />
       <FlashMessages flash={flash} />
       <Leaderboard ranks={ranks} />
     </React.Fragment>
   )
+}
+
+Ranks.propTypes = {
+  lastSeenServer: PropTypes.object
 }
 
 export default Ranks

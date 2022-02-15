@@ -7,6 +7,8 @@ class Channel < ApplicationRecord
   belongs_to :server
   has_many :ranks, as: :rankable, dependent: :delete_all
 
+  delegate :manage_by?, to: :server
+
   def self.where_or_create_by_discord_api_response!(response_str, server_id:)
     channels = []
     JSON.parse(response_str).each do |hash|

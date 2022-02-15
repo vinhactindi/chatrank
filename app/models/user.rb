@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :guilds, dependent: :destroy
   has_many :servers, through: :guilds
 
+  has_one :last_seen_server, class_name: 'Server', dependent: :nullify
+
   def self.find_or_create_from_auth_hash!(auth_hash)
     uid = auth_hash[:uid]
     name = auth_hash[:info][:name]
@@ -36,10 +38,15 @@ class User < ApplicationRecord
     "#{username}##{discriminator}"
   end
 
-  def manage?(server)
-    guild = guilds.find_by(server: server)
+  def manage?(object)
+    server = object.is_a?(Server) ? object : object.server
+    guild  = guilds.find_by(server: server)
     return Discordrb::Permissions.new(guild.permissions_or_zero).manage_server if guild
 
     false
+  end
+
+  def last_seen_server_to_react_prop
+    { id: last_seen_server.id.to_s, name: last_seen_server.name } if last_seen_server.present?
   end
 end
