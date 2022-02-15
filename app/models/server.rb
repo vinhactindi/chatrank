@@ -13,7 +13,7 @@ class Server < ApplicationRecord
       server          = Server.find_or_create_by!(id: hash['id'])
       server.user_id  = user_id if hash['owner']
       server.name     = hash['name']
-      server.icon_url = "https://cdn.discordapp.com/icons/#{hash['id']}/#{hash['icon']}" if hash['icon']
+      server.icon_url = ("https://cdn.discordapp.com/icons/#{hash['id']}/#{hash['icon']}" if hash['icon'].present?)
       server.save
 
       guild             = Guild.find_or_create_by!(user_id: user_id, server_id: server.id)
