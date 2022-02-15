@@ -51,6 +51,6 @@ class User < ApplicationRecord
   end
 
   def last_seen_server_to_react_prop
-    { id: last_seen_server.id.to_s, name: last_seen_server.name } if last_seen_server.present?
+    { id: last_seen_server.id.to_s, name: last_seen_server.name, icon_url: last_seen_server.icon_url } if last_seen_server.present?
   end
 end
