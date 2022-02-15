@@ -36,8 +36,9 @@ class User < ApplicationRecord
     "#{username}##{discriminator}"
   end
 
-  def manage?(server)
-    guild = guilds.find_by(server: server)
+  def manage?(object)
+    server = object.is_a?(Server) ? object : object.server
+    guild  = guilds.find_by(server: server)
     return Discordrb::Permissions.new(guild.permissions_or_zero).manage_server if guild
 
     false

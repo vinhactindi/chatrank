@@ -4,33 +4,6 @@ import PropTypes from 'prop-types'
 const Leaderboard = ({ ranks }) => {
   return (
     <React.Fragment>
-      {/* {updating && (
-        <div className="mt-3 text-center text-muted">
-          <h6>メッセージはありません</h6>
-          <p>
-            過去のメッセージを読み込んで、ランキング一覧を作成中ので、数分がかかるようです。
-          </p>
-          <button type="button" className="btn btn-link" onClick={onRefresh}>
-            リフレッシュ
-          </button>
-        </div>
-      )}
-      {!updating && ranks.length === 0 && (
-        <div className="mt-3 text-center text-muted">
-          <h6>メッセージはありません</h6>
-          <p>
-            botがサーバーとチャネルに参加していることを
-            <a
-              href={`https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&permissions=68608&scope=bot`}>
-              確認
-            </a>
-            してください。
-          </p>
-          <button type="button" className="btn btn-link" onClick={onRefresh}>
-            リフレッシュ
-          </button>
-        </div>
-      )} */}
       <ol className="list-group list-group-numbered mt-2">
         {ranks.map((rank) => (
           <li

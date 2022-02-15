@@ -11,6 +11,13 @@ const localStorageSavedOption = (key) => {
   return initialValue || null
 }
 
+const thisMonth = new Date().toISOString().slice(0, 7)
+
+const initalPeriod = {
+  value: thisMonth,
+  label: thisMonth
+}
+
 const Ranks = () => {
   const [selectedServer, setSelectedServer] = useState(() =>
     localStorageSavedOption('server')
@@ -20,12 +27,13 @@ const Ranks = () => {
     localStorageSavedOption('channel')
   )
 
-  const [selectedPeriod, setSelectedPeriod] = useState(() =>
-    localStorageSavedOption('period')
+  const [selectedPeriod, setSelectedPeriod] = useState(
+    () => localStorageSavedOption('period') || initalPeriod
   )
 
   const [ranks, setRanks] = useState([])
   const [ranksLoading, setRanksLoading] = useState(false)
+  const [isManager, setIsManager] = useState(false)
 
   const [flash, setFlash] = useState(null)
 
@@ -36,7 +44,10 @@ const Ranks = () => {
       }/ranks.json`
     )
 
-    url.searchParams.append('period', selectedPeriod.value)
+    url.searchParams.append(
+      'period',
+      selectedPeriod ? selectedPeriod.value : initalPeriod.value
+    )
 
     if (selectedChannel) {
       url.searchParams.append('rankable_type', 'Channel')
@@ -52,6 +63,7 @@ const Ranks = () => {
       .then((result) => {
         if (result.flash) setFlash(result.flash)
         if (result.ranks) setRanks(result.ranks)
+        if (result.manager) setIsManager(result.manager)
         setRanksLoading(false)
 
         localStorage.setItem('period', JSON.stringify(selectedPeriod))
@@ -64,9 +76,9 @@ const Ranks = () => {
   }
 
   useEffect(() => {
-    if (!selectedPeriod) return
-
     setRanks([])
+    setIsManager(false)
+  
     const updates = ['updated', 'update']
     if (
       updates.includes(selectedChannel?.id) ||
@@ -90,7 +102,7 @@ const Ranks = () => {
         onMessage={setFlash}
       />
       <LoadingBar isLoading={ranksLoading} />
-      <ManagerActions server={selectedServer} />
+      <ManagerActions server={selectedServer} isManager={isManager} />
       <FlashMessages flash={flash} />
       <Leaderboard ranks={ranks} />
     </React.Fragment>
