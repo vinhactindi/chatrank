@@ -24,6 +24,22 @@ const updatedOption = {
   name: '✅　更新しました'
 }
 
+const withIcon = (text, icon) => {
+  return (
+    <div>
+      {icon && (
+        <img
+          src={icon}
+          className="rounded-circle me-1 align-text-bottom"
+          alt={text}
+          width={18}
+        />
+      )}
+      <span>{text}</span>
+    </div>
+  )
+}
+
 const Selectors = (props) => {
   const [servers, setServers] = useState([])
   const [serversLoading, setServersLoading] = useState(false)
@@ -162,7 +178,7 @@ const Selectors = (props) => {
             className="mb-2"
             aria-labelledby="server-label"
             inputId="server-input"
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option) => withIcon(option.name, option.icon_url)}
             getOptionValue={(option) => option.id}
             value={props.selectedServer}
             onChange={handleSelectServer}

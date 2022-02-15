@@ -50,8 +50,9 @@ class Channel < ApplicationRecord
     groups.each do |key, value|
       user_id, period     = key
       user                = User.find_or_create_by!(id: user_id) do |u|
-        u.username = value.first['author']['username']
+        u.username      = value.first['author']['username']
         u.discriminator = value.first['author']['discriminator']
+        u.avatar_url    = "https://cdn.discordapp.com/avatars/#{user_id}/#{value.first['author']['avatar']}"
       end
       Guild.find_or_create_by!(user_id: user_id, server_id: server.id)
       messages_count      = value.length

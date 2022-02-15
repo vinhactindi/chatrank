@@ -20,3 +20,7 @@ body {
 a {
   text-decoration: none;
 }
+
+.list-group-numbered > li::before {
+  min-width: 1.2rem;
+}

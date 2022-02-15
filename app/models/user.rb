@@ -9,11 +9,11 @@ class User < ApplicationRecord
   has_one :last_seen_server, class_name: 'Server', dependent: :nullify
 
   def self.find_or_create_from_auth_hash!(auth_hash)
-    uid = auth_hash[:uid]
-    name = auth_hash[:info][:name]
-    image_url = auth_hash[:info][:image]
+    uid           = auth_hash[:uid]
+    name          = auth_hash[:info][:name]
+    image_url     = auth_hash[:info][:image]
     discriminator = auth_hash[:extra][:raw_info][:discriminator]
-    token = auth_hash[:credentials][:token]
+    token         = auth_hash[:credentials][:token]
 
     user = User.find_or_create_by!(id: uid) do |u|
       u.username      = name
@@ -26,12 +26,16 @@ class User < ApplicationRecord
   end
 
   def self.find_or_create_by_discord_event!(event)
-    User.find_or_create_by!(id: event.user.id) do |u|
+    user = User.find_or_create_by!(id: event.user.id) do |u|
       u.username      = event.user.name
-      u.discriminator = even.user.discriminator
+      u.discriminator = event.user.discriminator
 
       Guild.find_or_create_by!(user_id: event.user.id, server_id: event.server.id)
     end
+
+    user.update({ avatar_url: event.user.avatar_url })
+
+    user
   end
 
   def username_discriminator
