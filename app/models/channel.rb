@@ -52,8 +52,8 @@ class Channel < ApplicationRecord
       user                = User.find_or_create_by!(id: user_id) do |u|
         u.username      = value.first['author']['username']
         u.discriminator = value.first['author']['discriminator']
-        u.avatar_url    = "https://cdn.discordapp.com/avatars/#{user_id}/#{value.first['author']['avatar']}"
       end
+      user.update(avatar_url: ("https://cdn.discordapp.com/avatars/#{user_id}/#{value.first['author']['avatar']}" if value.first['author']['avatar'].present?))
       Guild.find_or_create_by!(user_id: user_id, server_id: server.id)
       messages_count      = value.length
       rank                = Rank.find_or_create_by!(user_id: user.id, rankable_type: 'Channel', rankable_id: id, period: period)
