@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Leaderboard = ({ ranks }) => {
-  console.log(ranks)
   return (
     <React.Fragment>
       <ol className="list-group list-group-numbered mt-2">
