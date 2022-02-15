@@ -10,8 +10,8 @@ const styles = {
   }),
   option: (base) => ({
     ...base,
-    borderBottom: '1px dotted',
-  }),
+    borderBottom: '1px dotted'
+  })
 }
 
 const updatingOption = {
@@ -101,13 +101,9 @@ const Selectors = (props) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        if (result.flash) {
-          props.onMessage(result.flash)
-          props.onChangeServer(updatedOption)
-          return
-        }
-
-        setServers([updatingOption, ...result.servers])
+        const servers = result.servers || []
+        if (result.flash) props.onMessage(result.flash)
+        setServers([updatingOption, ...servers])
         props.onChangeServer(updatedOption)
       })
       .finally(() => {
@@ -128,13 +124,9 @@ const Selectors = (props) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        if (result.flash) {
-          props.onMessage(result.flash)
-          props.onChangeChannel(updatedOption)
-          return
-        }
-
-        setChannels([updatingOption, ...result.channels])
+        const channels = result.channels || []
+        if (result.flash) props.onMessage(result.flash)
+        setChannels([updatingOption, ...channels])
         props.onChangeChannel(updatedOption)
       })
       .finally(() => {

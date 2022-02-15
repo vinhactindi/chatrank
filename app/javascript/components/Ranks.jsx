@@ -4,32 +4,20 @@ import Leaderboard from './Leaderboard'
 import LoadingBar from './LoadingBar'
 import ManagerActions from './ManagerActions'
 import Selectors from './Selectors'
-
-const localStorageSavedOption = (key) => {
-  const saved = localStorage.getItem(key)
-  const initialValue = JSON.parse(saved)
-  return initialValue || null
-}
+import PropTypes from 'prop-types'
 
 const thisMonth = new Date().toISOString().slice(0, 7)
 
-const initalPeriod = {
-  value: thisMonth,
-  label: thisMonth
-}
+const Ranks = ({ lastSeenServer }) => {
+  const [selectedServer, setSelectedServer] = useState(() => {
+    if (!lastSeenServer) return null
 
-const Ranks = () => {
-  const [selectedServer, setSelectedServer] = useState(() =>
-    localStorageSavedOption('server')
-  )
+    return lastSeenServer
+  })
 
-  const [selectedChannel, setSelectedChannel] = useState(() =>
-    localStorageSavedOption('channel')
-  )
+  const [selectedChannel, setSelectedChannel] = useState(null)
 
-  const [selectedPeriod, setSelectedPeriod] = useState(
-    () => localStorageSavedOption('period') || initalPeriod
-  )
+  const [selectedPeriod, setSelectedPeriod] = useState(null)
 
   const [ranks, setRanks] = useState([])
   const [ranksLoading, setRanksLoading] = useState(false)
@@ -46,7 +34,7 @@ const Ranks = () => {
 
     url.searchParams.append(
       'period',
-      selectedPeriod ? selectedPeriod.value : initalPeriod.value
+      selectedPeriod ? selectedPeriod.value : thisMonth
     )
 
     if (selectedChannel) {
@@ -78,7 +66,7 @@ const Ranks = () => {
   useEffect(() => {
     setRanks([])
     setIsManager(false)
-  
+
     const updates = ['updated', 'update']
     if (
       updates.includes(selectedChannel?.id) ||
@@ -107,6 +95,10 @@ const Ranks = () => {
       <Leaderboard ranks={ranks} />
     </React.Fragment>
   )
+}
+
+Ranks.propTypes = {
+  lastSeenServer: PropTypes.object
 }
 
 export default Ranks
