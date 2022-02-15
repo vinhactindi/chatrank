@@ -10,6 +10,14 @@ const Leaderboard = ({ ranks }) => {
             key={rank.id}
             className="list-group-item d-flex justify-content-between align-items-start border-secondary">
             <div className="ms-1 me-auto">
+              {rank.user.avatar_url && (
+                <img
+                  src={rank.user.avatar_url}
+                  className="rounded-circle me-1 align-text-bottom"
+                  alt={rank.user.username}
+                  width={18}
+                />
+              )}
               <span className="fw-bold">{rank.user.username}</span>
               {'#' + rank.user.discriminator}
             </div>

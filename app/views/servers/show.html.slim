@@ -1,4 +1,6 @@
 .text-center.mt-3
+  - if @server.icon_url.present?
+    img.rounded-circle.me-1.align-text-bottom.m-3 src=@server.icon_url alt='icon' width=64
   h1
     = @server.name
   .text-center.mb-3

@@ -3,9 +3,14 @@ nav.navbar.navbar-white.bg-white
     .navbar-brand
     .d-flex
       .dropdown
-        button#dropdownMenu.btn.btn-link.btn-sm.p-0.text-decoration-none data-bs-toggle='dropdown' aria-expanded='false'
-          = current_user.username_discriminator
-        ul.dropdown-menu.dropdown-menu-end.shadow aria-labelledby="dropdownMenu"
+        button#dropdownMenu.rounded-pill.btn.btn-link.p-0.text-decoration-none data-bs-toggle='dropdown' aria-expanded='false'
+          img.rounded-circle src=current_user.avatar_url alt=current_user.username_discriminator width=36
+        ul.dropdown-menu.dropdown-menu-end.shadow aria-labelledby='dropdownMenu'
+          li
+            span.dropdown-item-text
+              = current_user.username_discriminator
+          li
+            hr.dropdown-divider
           li
             = link_to '参加したサーバー', servers_path, class: 'dropdown-item'
           li

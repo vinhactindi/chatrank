@@ -10,9 +10,10 @@ class Server < ApplicationRecord
   def self.where_or_create_by_discord_api_response!(response_str, user_id:)
     servers = []
     JSON.parse(response_str).each do |hash|
-      server         = Server.find_or_create_by!(id: hash['id'])
-      server.user_id = user_id if hash['owner']
-      server.name    = hash['name']
+      server          = Server.find_or_create_by!(id: hash['id'])
+      server.user_id  = user_id if hash['owner']
+      server.name     = hash['name']
+      server.icon_url = "https://cdn.discordapp.com/icons/#{hash['id']}/#{hash['icon']}" if hash['icon']
       server.save
 
       guild             = Guild.find_or_create_by!(user_id: user_id, server_id: server.id)
