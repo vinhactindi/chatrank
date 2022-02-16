@@ -7,6 +7,10 @@ Metrics/BlockLength:
   Exclude:
     - test/**/*
 
+Metrics/MethodLength:
+  Exclude:
+    - app/models/bot.rb
+
 Rails/SkipsModelValidations:
   Exclude:
     - app/models/rank.rb
