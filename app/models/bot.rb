@@ -4,7 +4,7 @@ class Bot
   include Singleton
 
   def self.instance
-    @@instance ||= Discordrb::Bot.new token: ENV['DISCORD_BOT_TOKEN']
+    @@instance ||= Discordrb::Commands::CommandBot.new token: ENV['DISCORD_BOT_TOKEN'], prefix: 'chatrank!'
   end
 
   def self.run
@@ -12,20 +12,25 @@ class Bot
       Rank.increment_channel_messages_count_by_discord_event!(event)
     end
 
-    Bot.instance.message(with_text: 'Chatrank!') do |event|
-      period      = Time.current.strftime('%Y-%m')
-      ranks       = Rank.monthly(rankable_type: 'Server', rankable_id: event.server.id, period: period)
-      badges      = ['🥇', '🥈', '🥉']
-      leaderboard = ranks.map.with_index do |rank, index|
-        order = index < 3 ? badges[index] : index + 1
-        "#{order}. #{rank.user.username_discriminator}"
-      end.join("\n")
-      response = <<~TEXT
-        以下は今月（#{period}）のチャットユーザーのランキングです~
+    leaderboard_description = 'Leaderboard for this month or the month you entered.'
+    Bot.instance.command(:leaderboard, min_args: 0, max_args: 1, description: leaderboard_description, usage: 'leaderboard [2020-02]') do |event, period|
+      period ||= Time.current.strftime('%Y-%m')
+      ranks = Rank.monthly(rankable_type: 'Server', rankable_id: event.server.id, period: period)
+      badges = ['🥇', '🥈', '🥉']
+      leaderboard = if ranks.any?
+                      ranks.map.with_index do |rank, index|
+                        order = index < 3 ? badges[index] : index + 1
+                        "#{order}. #{rank.user.username_discriminator}"
+                      end.join("\n")
+                    else
+                      'まだランキングされているユーザーはいません!'
+                    end
+
+      <<~TEXT
+        *以下は「#{period}」のチャットユーザーのランキングです~*
 
         #{leaderboard}
       TEXT
-      event.respond response
     end
 
     Bot.instance.run
