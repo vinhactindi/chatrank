@@ -8,7 +8,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/vinhactindi/chatrank">
-    <img style="border-radius:50%" src="app/assets/images/chatrank.png" alt="Logo" width="80" height="80">
+    <img src="app/assets/images/chatrank.png" alt="Logo" width="200" height="200">
   </a>
 
   <h3 align="center">Chat Rank</h3>
