@@ -2,8 +2,9 @@ doctype html
 html
   head
     title
-      | Chatrank
+      | Chatrank | Member ranking by message number DiscordBot
     meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = render 'layouts/ogp'
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
