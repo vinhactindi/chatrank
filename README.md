@@ -3,6 +3,8 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://chatrankbot.herokuapp.com)
+
 
 <!-- PROJECT LOGO -->
 <br />
@@ -74,21 +76,21 @@ $ bin/rails serve
 $ bin/rails bot:run
 ```
 
-## Herokuにデプロイ
-
-作成中
-
-## テスト
+### テスト
 
 ```
 $ bin/rails test:all
 ```
 
-## リント
+### リント
 
 ```
 $ bin/lint
 ```
+
+## Herokuにデプロイ
+
+作成中
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
