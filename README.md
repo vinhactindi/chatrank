@@ -89,3 +89,16 @@ $ bin/rails test:all
 ```
 $ bin/lint
 ```
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/vinhactindi/chatrank.svg?style=for-the-badge
+[contributors-url]: https://github.com/vinhactindi/chatrank/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/vinhactindi/chatrank.svg?style=for-the-badge
+[forks-url]: https://github.com/vinhactindi/chatrank/network/members
+[stars-shield]: https://img.shields.io/github/stars/vinhactindi/chatrank.svg?style=for-the-badge
+[stars-url]: https://github.com/vinhactindi/chatrank/stargazers
+[issues-shield]: https://img.shields.io/github/issues/vinhactindi/chatrank.svg?style=for-the-badge
+[issues-url]: https://github.com/vinhactindi/chatrank/issues
+[license-shield]: https://img.shields.io/github/license/vinhactindi/chatrank.svg?style=for-the-badge
+[license-url]: https://github.com/vinhactindi/chatrank/blob/master/LICENSE.txt
