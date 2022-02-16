@@ -90,7 +90,11 @@ const Ranks = ({ lastSeenServer }) => {
         onMessage={setFlash}
       />
       <LoadingBar isLoading={ranksLoading} />
-      <ManagerActions server={selectedServer} isManager={isManager} />
+      <ManagerActions
+        server={selectedServer}
+        isManager={isManager}
+        onRefresh={loadRanks}
+      />
       <FlashMessages flash={flash} />
       <Leaderboard ranks={ranks} />
     </React.Fragment>
