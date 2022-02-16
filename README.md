@@ -48,15 +48,25 @@ ChatRank はフィヨルドブートキャンプで自作サービスです。
 
 ### DiscordのApplicationの作成
 
-作成中
+* https://discord.com/developers/applications/ でApplicationを作成
+
+#### Botの設定
+
+* `Developer Portal` でBotを作成し、`Token` を環境変数に設定する
+
+#### OAuth2の設定
+
+* `Developer Portal / OAuth2 / Redirects` にリダイレクトURLを設定する
+* `Client ID` と `Client Secret` を環境変数に設定する
+
 
 ### 環境変数の設定
 
 | 環境変数名             | 説明                                      |
 | --------------------- | ----------------------------------------- |
-| DISCORD_BOT_TOKEN     | BotのToken                                |
-| DISCORD_CLIENT_ID     | OAuth2のClient ID                         |
-| DISCORD_CLIENT_SECRET | OAuth2のClient Secret                     |
+| DISCORD_BOT_TOKEN     | Botの `Token`                               |
+| DISCORD_CLIENT_ID     | OAuth2の `Client ID`                         |
+| DISCORD_CLIENT_SECRET | OAuth2の `Client Secret`                     |
 
 ### インストール
 
@@ -88,9 +98,15 @@ $ bin/rails test:all
 $ bin/lint
 ```
 
-## Herokuにデプロイ
+## Herokuにデプロイの注意
 
-作成中
+デフォルトでは、herokuは `web` のdynoのみを実行します。アプリの全機能については、`worker` のdynoを有効にしてください。
+
+> 個人のアカウントには、月ごとに 550 時間の基本の Free dyno 時間が割り当てられています。この基本の時間のほかに、クレジットカードで認証を行っている​アカウントには、月単位の​ Free dyno 割り当てに 450 時間が追加されます。 つまり、アカウントをクレジットカードで認証しているユーザーには、月ごとに合計で 1000 Free dyno 時間が割り当てられます。
+>
+> -- https://devcenter.heroku.com/ja/articles/free-dyno-hours#free-dyno-hour-pool
+
+![Heroku Dynos](/app/assets/images/heroku-dynos.png)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
