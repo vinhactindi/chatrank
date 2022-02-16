@@ -46,6 +46,37 @@ ChatRank はフィヨルドブートキャンプで自作サービスです。
 
 ## 利用方法
 
+### ログイン
+
+* Discordのアカウントでログインします
+
+![Login](/app/assets/images/usage-login.png)
+
+### Botを招待
+
+* 「サーバーにbotを招待する」または、「ボットを招待」をクリックしてください
+
+![Bot invite](/app/assets/images/usage-bot-invite.png)
+
+### サーバーとチャンネルの一覧を更新
+
+* 初めてログインしたときは、サーバーは表示されませんので、**サーバー**と**チャンネル**のinputで「更新」をクリックしてください
+
+![Upate server and channel list](/app/assets/images/usage-update.png)
+
+### 過去統計
+
+* *過去のメッセージでメンバーをランク付けする必要がない場合は、この機能を気にしないでください*
+* サーバーとチャンネルの一覧を更新した後、サーバーの管理者として過去統計できます
+* 「過去統計」をクリックしたら、確認してください
+* サーバーに大量のメッセージがある場合、プロセスにはかなりの時間がかかります（多分20分から数時間）・統計中にリーダーボードが表示しません
+* この機能は必要な場合にのみ使用してください
+
+
+![Read History Messages](/app/assets/images/usage-read-history-messages.png)
+
+## 開発
+
 ### DiscordのApplicationの作成
 
 * https://discord.com/developers/applications/ でApplicationを作成
