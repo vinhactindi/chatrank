@@ -1,10 +1,10 @@
 .text-center.mt-5
   = image_tag 'chatrank.png', width: 200
   p.my-3
-    | Discordの発言数集計Botです。
+    | Discordの発言数集計Botです！
     br
     | 毎月の発言数の合計と発言者数の多いチャットユーザのランキングします。
     br
-    = link_to 'サーバーにbotを招待する', invite_bot_url
+    = link_to 'サーバーにbotを招待します', invite_bot_url
   hr.mx-5
-  = link_to 'ログイン', '/auth/discord', method: :post, class: 'btn btn-lg btn-outline-secondary rounded-pill'
+  = link_to 'Discord でログイン', '/auth/discord', method: :post, class: 'btn btn-lg btn-outline-secondary rounded-pill'
