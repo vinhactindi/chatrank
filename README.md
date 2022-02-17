@@ -80,6 +80,12 @@ ChatRank はフィヨルドブートキャンプで自作サービスです。
 
 ![Read History Messages](/app/assets/images/usage-read-history-messages.png)
 
+### リーダーボード
+
+* ホームページにアクセスしてランキングを確認するか、`chatrank!leaderboard` をチャンネルに送信してください（詳細については、`chatrank!help` を参照してください）
+
+![Commands Bot](/app/assets/images/usage-commands.png)
+
 ## 開発
 
 ### DiscordのApplicationの作成

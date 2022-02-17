@@ -77,9 +77,13 @@ ChatRank is a self-made service at the Fjord Bootcamp.
 * Depending on the number of messages in the server, the process will take longer (20m to ~h)
 * Please consider when using this feature
 
-
 ![Read History Messages](/app/assets/images/usage-read-history-messages.png)
 
+### Leaderboard
+
+* Visit the homepage to see the rankings or send `chatrank!leaderboard` to your channel (`chatrank!help` for more information)
+
+![Commands Bot](/app/assets/images/usage-commands.png)
 ## Development
 
 ### Discord application creating
