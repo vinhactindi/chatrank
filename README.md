@@ -25,6 +25,11 @@
     <a href="https://github.com/vinhactindi/chatrank/issues">バグの報告</a>
     ·
     <a href="https://github.com/vinhactindi/chatrank/issues">機能のリクエスト</a>
+    <br />
+    <br />
+    このドキュメントを
+    <a href="https://github.com/vinhactindi/chatrank/blob/main/README.en.md">English</a>
+    で読みたいですか？
   </p>
 </div>
 
@@ -131,11 +136,23 @@ $ bin/lint
 
 ## Herokuにデプロイの注意
 
+### `worker bin/rail bot:run`
+
 デフォルトでは、herokuは `web` のdynoのみを実行します。アプリの全機能については、`worker` のdynoを有効にしてください。
 
 > 個人のアカウントには、月ごとに 550 時間の基本の Free dyno 時間が割り当てられています。この基本の時間のほかに、クレジットカードで認証を行っている​アカウントには、月単位の​ Free dyno 割り当てに 450 時間が追加されます。 つまり、アカウントをクレジットカードで認証しているユーザーには、月ごとに合計で 1000 Free dyno 時間が割り当てられます。
 >
 > -- https://devcenter.heroku.com/ja/articles/free-dyno-hours#free-dyno-hour-pool
+
+
+### dyno のスリープ
+
+> アプリに Free Web dyno があり、その dyno が 30 分間 Web トラフィックを受信しない場合、その dyno は休眠状態​になります。 Web dyno のスリープに加えて、Worker dyno (存在する場合) も​スリープします。
+> Free Web dyno は休眠中、Free dyno 時間を消費しません。
+>
+> -- https://devcenter.heroku.com/ja/articles/free-dyno-hours#dyno-sleeping
+
+
 
 ![Heroku Dynos](/app/assets/images/heroku-dynos.png)
 
