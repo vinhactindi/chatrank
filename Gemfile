@@ -44,6 +44,7 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'webmock'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
