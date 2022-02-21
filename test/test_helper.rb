@@ -3,7 +3,6 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
-require 'webmock/minitest'
 
 Capybara.default_max_wait_time = 5
 Capybara.disable_animation = true
@@ -16,7 +15,6 @@ class ActiveSupport::TestCase
   fixtures :all
 
   OmniAuth.config.test_mode = true
-  WebMock.allow_net_connect!
 
   def discord_account_mock(name, uid)
     auth_hash = {
