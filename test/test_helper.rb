@@ -5,6 +5,12 @@ require_relative '../config/environment'
 require 'rails/test_help'
 require 'webmock/minitest'
 
+Capybara.default_max_wait_time = 5
+Capybara.disable_animation = true
+Webdrivers.cache_time = 86_400
+Minitest::Retry.use! if ENV['CI']
+Selenium::WebDriver.logger.ignore(:browser_options)
+
 class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors)
 
@@ -31,4 +37,8 @@ class ActiveSupport::TestCase
     }
     OmniAuth.config.mock_auth[:discord] = OmniAuth::AuthHash.new(auth_hash)
   end
+end
+
+ActiveSupport.on_load(:action_dispatch_system_test_case) do
+  ActionDispatch::SystemTesting::Server.silence_puma = true
 end
