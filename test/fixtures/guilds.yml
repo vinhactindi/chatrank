@@ -2,3 +2,8 @@ vinh_bootcamp:
   user: vinh
   server: bootcamp
   permissions: 32 # manager
+
+vinh_shiba:
+  user: vinh
+  server: shiba
+  permissions: 0 # no one

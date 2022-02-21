@@ -24,6 +24,9 @@ class ActiveSupport::TestCase
         raw_info: {
           discriminator: '1234'
         }
+      },
+      credentials: {
+        token: 'ODDFOFXUpgf7yEntul5ockCA' # fake
       }
     }
     OmniAuth.config.mock_auth[:discord] = OmniAuth::AuthHash.new(auth_hash)
