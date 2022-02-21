@@ -1,15 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+vinh:
+  username: vinh
+  discriminator: '1111'
+  avatar_url: https://cdn.discordapp.com/embed/avatars/1.png
 
-one:
-  uid: MyString
-  provider: MyString
-  username: MyString
-  discriminator: MyString
-  avatar_url: MyString
-
-two:
-  uid: MyString
-  provider: MyString
-  username: MyString
-  discriminator: MyString
-  avatar_url: MyString
+ruanshiron:
+  username: ruanshiron
+  discriminator: '2222'
+  avatar_url: https://cdn.discordapp.com/embed/avatars/2.png

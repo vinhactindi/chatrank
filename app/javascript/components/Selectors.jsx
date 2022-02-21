@@ -171,6 +171,7 @@ const Selectors = (props) => {
             サーバー
           </label>
           <Select
+            id="server-select"
             components={{
               DropdownIndicator: () => null,
               IndicatorSeparator: () => null
@@ -194,6 +195,7 @@ const Selectors = (props) => {
             チャンネル
           </label>
           <Select
+            id="channel-select"
             components={{
               DropdownIndicator: () => null,
               IndicatorSeparator: () => null
@@ -218,6 +220,7 @@ const Selectors = (props) => {
             期間
           </label>
           <Select
+            id="period-select"
             components={{
               DropdownIndicator: () => null,
               IndicatorSeparator: () => null

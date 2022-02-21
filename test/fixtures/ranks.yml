@@ -1,2 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one: 
+  user: vinh
+  rankable: bootcamp (Server)
+  messages_count: 10
+  period: '2022-01'
 
+two:
+  user: vinh
+  rankable: general (Channel)
+  messages_count: 8
+  period: '2022-01'
+
+two:
+  user: vinh
+  rankable: text (Channel)
+  messages_count: 2
+  period: '2022-01'
