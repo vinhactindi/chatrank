@@ -2,3 +2,8 @@ general:
   name: general
   channel_type: 0 # text channel
   server: bootcamp
+
+text:
+  name: text
+  channel_type: 0
+  server: bootcamp
