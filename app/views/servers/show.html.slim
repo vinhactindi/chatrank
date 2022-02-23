@@ -10,6 +10,6 @@
   p.text-start
     | 集計を行うと、このDiscord Server内のすべてのメッセージを取得し一覧で表示します。 集計には時間がかかります。
   - if @server.updating
-    button.btn.btn-warning.btn-lg disabled=true 発言を集計する
+    button.btn.btn-warning.btn-lg disabled=true 発言を集計している
   - else
-    = link_to '過去統計', server_path(@server), method: :patch, class: 'btn btn-warning btn-lg', data: { confirm: 'よろしいですか?' }
+    = link_to '発言を集計する', server_path(@server), method: :patch, class: 'btn btn-warning btn-lg', data: { confirm: 'よろしいですか?' }
