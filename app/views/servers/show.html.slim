@@ -7,10 +7,9 @@
     = link_to 'チャンネル一覧', server_channels_path(@server)
     span.m-2 ・
     = link_to 'メンバー一覧', server_members_path(@server)
-  p
-    | このボタンを押すと、システムはこのDiscord Server内のすべてのメッセージを一覧表示します。 これには時間がかかりますので、この機能の使用を検討してください。
-  hr
+  p.text-start
+    | 集計を行うと、このDiscord Server内のすべてのメッセージを取得し一覧で表示します。 集計には時間がかかります。
   - if @server.updating
-    button.btn.btn-warning.btn-lg disabled=true 過去統計中
+    button.btn.btn-warning.btn-lg disabled=true 発言を集計する
   - else
     = link_to '過去統計', server_path(@server), method: :patch, class: 'btn btn-warning btn-lg', data: { confirm: 'よろしいですか?' }
