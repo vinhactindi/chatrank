@@ -73,7 +73,7 @@ ChatRank is a self-made service at the Fjord Bootcamp.
 
 * *If you don't want to rank members by historical messages, you don't need to worry about this feature*
 * Make sure you are the manager and you did update your servers and channels list
-* Click on **過去統計** to make this feature work
+* Click on **発言の集計をする** to make this feature work
 * Depending on the number of messages in the server, the process will take longer (20m to ~h)
 * Please consider when using this feature
 

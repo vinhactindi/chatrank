@@ -35,9 +35,9 @@ class ServersController < ApplicationController
     if @server.channels.empty?
       flash.now[:alert] = '最初にチャネル一覧を更新してください'
     elsif @server.updating
-      flash.now[:notice] = '過去のメッセージを読み込んでいますので、後で戻ってください'
+      flash.now[:notice] = '発言を取得しています。この作業には時間がかかりますので、時間をおいて再度このページにアクセスしてください。'
     elsif @server.update(updating: true)
-      flash.now[:notice] = '過去のメッセージを読み込んでいますので、後で戻ってください'
+      flash.now[:notice] = '発言を取得しています。この作業には時間がかかりますので、時間をおいて再度このページにアクセスしてください。'
       ReadHistoryMessagesJob.perform_later(@server)
     end
     render :show

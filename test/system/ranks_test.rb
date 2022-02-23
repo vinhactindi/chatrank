@@ -6,7 +6,7 @@ class RanksTest < ApplicationSystemTestCase
   test 'visting leaderboard as a manager' do
     login_user users(:vinh)
     visit root_url
-    assert_text '過去統計'
+    assert_text '発言の集計をする'
   end
 
   test 'visiting bootcamp leaderboard' do

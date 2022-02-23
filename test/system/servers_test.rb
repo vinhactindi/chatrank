@@ -20,9 +20,9 @@ class ServersTest < ApplicationSystemTestCase
     login_user users(:vinh)
 
     visit server_path(servers(:bootcamp))
-    click_link '過去統計'
+    click_link '発言を集計する'
     accept_confirm
 
-    assert_text '過去のメッセージを読み込んでいますので、後で戻ってください'
+    assert_text '発言を取得しています。この作業には時間がかかりますので、時間をおいて再度このページにアクセスしてください。'
   end
 end
