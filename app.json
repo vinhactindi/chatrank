@@ -1,0 +1,23 @@
+{
+  "name": "chatrank",
+  "description": "Member ranking by message number DiscordBot",
+  "repository": "https://github.com/vinhactindi/chatrank",
+  "logo": "https://github.com/vinhactindi/chatrank/raw/main/app/assets/images/chatrank.png",
+  "keywords": ["ruby", "rails", "discordrb", "chat", "ranking"],
+  "success_url": "/welcome",
+  "scripts": {
+    "postdeploy": "bundle exec rails db:migrate db:seed"
+  },
+  "env": {
+    "DISCORD_BOT_TOKEN": {
+      "description": "The token of your Discord bot"
+    },
+    "DISCORD_CLIENT_ID": {
+      "description": "The client ID of your Discord application"
+    },
+    "DISCORD_CLIENT_SECRET": {
+      "description": "The client secret of your Discord application"
+    }
+  },
+  "addons": ["heroku-postgresql"]
+}
