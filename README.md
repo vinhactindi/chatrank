@@ -141,8 +141,6 @@ $ bin/lint
 
 ## Herokuにデプロイ
 
-### デプロイ
-
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)][heroku-deploy-url]
 
 ### `worker bin/rail bot:run`
