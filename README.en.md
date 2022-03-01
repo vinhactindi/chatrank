@@ -3,7 +3,6 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://chatrankbot.herokuapp.com)
 
 
 <!-- PROJECT LOGO -->
@@ -138,7 +137,9 @@ $ bin/rails test:all
 $ bin/lint
 ```
 
-## Heroku deploy notice
+## Heroku deploy
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)][heroku-deploy-url]
 
 ### `worker bin/rail bot:run`
 
@@ -172,3 +173,4 @@ $ bin/lint
 [issues-url]: https://github.com/vinhactindi/chatrank/issues
 [license-shield]: https://img.shields.io/github/license/vinhactindi/chatrank.svg?style=for-the-badge
 [license-url]: https://github.com/vinhactindi/chatrank/blob/master/LICENSE.txt
+[heroku-deploy-url]: https://heroku.com/deploy?template=https://github.com/vinhactindi/chatrank
