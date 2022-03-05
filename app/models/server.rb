@@ -32,7 +32,6 @@ class Server < ApplicationRecord
       channel.ranks.destroy_all
       channel.update_messages_count!(ENV['DISCORD_BOT_TOKEN'])
     end
-    update(updating: false)
   end
 
   def manage_by?(user)
