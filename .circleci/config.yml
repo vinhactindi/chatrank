@@ -46,7 +46,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
-      
+
   - run:
       name: DB の待機
       command: dockerize -wait tcp://localhost:5432 -timeout 1m
@@ -54,7 +54,6 @@ jobs:
   - run:
       name: データベースのセットアップ
       command: bundle exec rails test:all
-
 
 workflows:
   version: 2
