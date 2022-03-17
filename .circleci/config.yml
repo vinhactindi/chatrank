@@ -1,0 +1,72 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.0
+  node: circleci/node@2
+  browser-tools: circleci/browser-tools@1.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:3.0.2-node
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+
+  test:
+    parallelism: 3
+    docker:
+      - image: cimg/ruby:3.0.2-browsers
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
+      - image: cimg/postgres:14.0
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
+        environment:
+          POSTGRES_USER: circleci-demo-ruby
+          POSTGRES_DB: chatrank_test
+          POSTGRES_PASSWORD: ""
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: circleci-demo-ruby
+      PGPASSWORD: ""
+      RAILS_ENV: test
+    steps:
+      - browser-tools/install-browser-tools
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+      - run:
+          name: Webpack の実行
+          command: bundle exec rails webpacker:compile
+      - run:
+          name: DB の待機
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: データベースのセットアップ
+          command: bundle exec rails db:setup
+      - run:
+          name: データベースのセットアップ
+          command: bundle exec rails test:all
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+
+      - test:
+          requires:
+            - build

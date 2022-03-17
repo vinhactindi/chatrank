@@ -16,6 +16,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     Rails.application.env_config['omniauth.auth'] = discord_account_mock(user.username, user.id)
 
     visit root_path
-    click_link 'Discord でログイン'
+    find('input[value="Discord でログイン"]').click
   end
 end
