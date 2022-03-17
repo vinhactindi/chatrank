@@ -33,6 +33,7 @@ jobs:
           POSTGRES_USER: circleci-demo-ruby
           POSTGRES_DB: chatrank_test
           POSTGRES_PASSWORD: ""
+      - image: selenium/standalone-chrome
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
