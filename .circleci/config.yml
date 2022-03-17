@@ -41,6 +41,11 @@ jobs:
       PGPASSWORD: ""
       RAILS_ENV: test
     steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
       - run:
           name: DB の待機
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
