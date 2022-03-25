@@ -20,7 +20,6 @@ jobs:
           label: Inspecting with Rubocop
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: "yarn.lock"
 
   test:
     parallelism: 3
@@ -50,7 +49,6 @@ jobs:
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: "yarn.lock"
       - run:
           name: Webpack の実行
           command: bundle exec rails webpacker:compile
