@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@1.0
-  node: circleci/node@2
+  ruby: circleci/ruby@1.4
+  node: circleci/node@5.0.1
   browser-tools: circleci/browser-tools@1.1
 
 jobs:
@@ -15,6 +15,9 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
+      - ruby/rubocop-check:
+          format: progress
+          label: Inspecting with Rubocop
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
