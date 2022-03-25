@@ -1,35 +1,28 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@1.0
-  node: circleci/node@2
+  ruby: circleci/ruby@1.4
+  node: circleci/node@5.0.1
   browser-tools: circleci/browser-tools@1.1
 
 jobs:
   build:
     docker:
       - image: cimg/ruby:3.0.2-node
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - ruby/install-deps
+      - ruby/rubocop-check:
+          format: progress
+          label: Inspecting with Rubocop
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: "yarn.lock"
 
   test:
     parallelism: 3
     docker:
       - image: cimg/ruby:3.0.2-browsers
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
       - image: cimg/postgres:14.0
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
         environment:
           POSTGRES_USER: circleci-demo-ruby
           POSTGRES_DB: chatrank_test
@@ -47,7 +40,6 @@ jobs:
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: "yarn.lock"
       - run:
           name: Webpack の実行
           command: bundle exec rails webpacker:compile
